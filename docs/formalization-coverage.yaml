@@ -1,0 +1,10 @@
+schema_version: 1
+theorem: navier-cp1-conditional-clay-a
+end_to_end_trust_zero_lean_theorem: false
+end_to_end_axiom_dependent_lean_theorem: false
+boundary:
+  overall_status: skeleton
+  literature_inputs: [tao-2013-theorem-5-4, gkp-2013-theorem-4]
+  open_project_inputs: [hyp-critical]
+  authoritative_boundary: docs/literature-assumptions.yaml
+declarations: []

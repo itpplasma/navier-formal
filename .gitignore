@@ -1,0 +1,12 @@
+.lake/
+build/
+*.olean
+*.ilean
+*.trace
+__pycache__/
+*.pdf
+*.log
+*.aux
+research/.tmp_*
+research/scratch_*
+.claude/

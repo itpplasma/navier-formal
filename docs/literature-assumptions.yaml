@@ -1,0 +1,40 @@
+schema_version: 1
+repository: itpplasma/navier-formal
+purpose: >-
+  Keep cited mathematics usable by the formalization without confusing an
+  external input with a self-contained Lean proof.
+root_imports_assumptions: false
+project_axioms_in_default_root: false
+status_vocabulary:
+  FORMALIZED: proved by Lean with only the standard foundation axioms.
+  LITERATURE-INPUT: a cited theorem stated as an axiom with a verified source record.
+  CONDITIONAL: a Lean consumer proved under an explicit hypothesis.
+  OPEN: the bridge is neither proved nor licensed by a citation.
+formalization_program:
+  phase_i:
+    goal: >-
+      Every manuscript-owned step is proved in Lean down to the literature it
+      cites; remaining axioms are cited published theorems with verified
+      direct-source records.
+    status: authorized 2026-09-05; not started in Lean.
+  phase_ii:
+    goal: Every Phase I axiom is proved from Mathlib.
+    disposal_classes:
+      M: available in Mathlib in some form; prove directly.
+      F: standard mathematics absent from Mathlib; formalize it.
+    status: authorized 2026-09-05; not started.
+literature_inputs:
+  - id: tao-2013-theorem-5-4
+    statement: local classical theory for Schwartz divergence-free data on R3
+    source: Tao, APDE 6 (2013), Theorem 5.4
+    lean: null
+    status: OPEN
+  - id: gkp-2013-theorem-4
+    statement: maximal L3 solution with bounded L3 norm is global (ESS endpoint)
+    source: Gallagher–Koch–Planchon, arXiv:1012.0145, Theorem 4
+    lean: null
+    status: OPEN
+open_project_inputs:
+  - id: hyp-critical
+    statement: finite-horizon a priori L3 bound for every Clay datum
+    status: OPEN (explicit hypothesis of the conditional theorem; not a literature input)

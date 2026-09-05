@@ -1,0 +1,19 @@
+name = "NavierFormal"
+version = "0.1.0"
+defaultTargets = ["NavierFormal", "Challenge", "Solution"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.33.1"
+
+[[lean_lib]]
+name = "NavierFormal"
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]

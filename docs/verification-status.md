@@ -21,7 +21,13 @@ the statement surface (`NavierFormal/Calculus.lean`, `SolutionClass.lean`,
 class, `def:target`, `hyp:critical`, `D₃`, `P₃`, the quotient objects) and
 three families of proof sentences (`IBP.lean`: boundary-free integrations by
 parts; `Interpolation.lean`: Lyapunov interpolation, Sobolev without compact
-support, Young; `SolutionClass.lean`: `eq:nu-normalization`). Every labelled
+support, Young; `SolutionClass.lean`: `eq:nu-normalization`). CP03d adds two
+pointwise/functional bridges (`NavierFormal/DensityBridge.lean`: the `∇|u|`
+form of the `D₃`, `P₃` densities and the divergence identity
+`div(r_ε u) = (|u|/r_ε) u·∇|u|` of the proof of `prop:pressure`;
+`NavierFormal/QuotientScaling.lean`: the critical dilation as a linear
+isometry of `L³` onto itself and the invariance `𝒬(u_λ) = 𝒬(u)` of
+`sec:quotient`). Every labelled
 manuscript result keeps the status in the table below; the fidelity audit of
 each definition is in `paper-lean-specification.md`.
 `Challenge.lean` still carries only the labelled placeholder. The
@@ -41,7 +47,7 @@ are in `literature-assumptions.yaml`.
 | `prop:lowpressure` | — | paper only |
 | `thm:continuation` | — | paper only (imports ESS/GKP) |
 | `thm:conditional` | — | paper only (conditional on `hyp:critical`) |
-| `sec:quotient` results | — (objects only: `NavierFormal.L3`, `gradientSubspace`, `quotientFunctional`, `IsQuotientMinimizer`, `cubicMap`, `IsSolenoidalL3`, `quotientDissipation`, `strainFlux`; see the definitions table) | paper only (HF17, audited) |
+| `sec:quotient` results | — (objects only: `NavierFormal.L3`, `gradientSubspace`, `quotientFunctional`, `IsQuotientMinimizer`, `cubicMap`, `IsSolenoidalL3`, `quotientDissipation`, `strainFlux`; see the definitions table; the sentence "cubic in amplitude and invariant under the critical spatial scaling" is a supporting lemma below) | paper only (HF17, audited) |
 | `def:target` | `NavierFormal.ClayAlternativeA`, `NavierFormal.ClayAlternativeA_all` (statement only) | paper only (statement formalized; nothing proved about it) |
 | `hyp:critical` | `NavierFormal.CriticalBound`, `NavierFormal.CriticalHypothesis` (statement only) | paper only (hypothesis formalized; not asserted) |
 | `eq:nu-normalization` (`v_s + (v·∇)v + ∇q = Δv`, `‖v(s)‖₃ = ν⁻¹‖u(s/ν)‖₃`) | `NavierFormal.IsClassicalSolution.nuNormalization`, `NavierFormal.eLpNorm_three_nuNormalization` (lemmas `NavierFormal.convection_const_smul`, `divergence_const_smul`, `gradient_const_smul`, `contDiffOn_timeScale`, `continuousOn_timeScale`, `timeDeriv_eq_deriv`) | Phase II complete (no literature input); the clause `S_* = νT_*` is only the interval endpoint `νT`, no maximal time is defined |
@@ -72,6 +78,12 @@ found at integration are listed after the table.
 | `prop:pressure` (`D₃` integrand `\|u\|\|∇u\|² + \|u\|\|∇\|u\|\|²` through `(∇u)ᵀu`: `\|(∇u)ᵀu\|²/\|u\| ≤ \|u\|\|∇u\|²`, nonnegativity, zero at `u = 0`, `((∇u)ᵀu)ⱼ = ⟨u, ∂ⱼu⟩`) | `NavierFormal.inner_gradTranspose_left`, `gradTranspose_component`, `inner_self_gradTranspose`, `norm_gradTranspose_le`, `norm_gradTranspose_sq_div_le`, `D3density_nonneg`, `D3density_le_two_mul`, `D3density_eq_zero_of_eq_zero`, `enstrophyDensity_nonneg` | Phase II complete (supporting lemma, no literature input) |
 | `prop:pressure` (`P₃` integrand `p u·∇\|u\|` through `(∇u)ᵀu`: convection form, zero at `u = 0`, `\|p u·∇\|u\|\| ≤ \|p\|\|∇u\|\|u\|`) | `NavierFormal.P3density_eq_mul_div`, `P3density_eq_convection`, `P3density_eq_zero_of_eq_zero`, `abs_P3density_le` | Phase II complete (supporting lemma, no literature input) |
 | `prop:pressure` (`∇r_ε(u) = (∇u)ᵀu / r_ε(u)`, the regularized `P₃` integrand `⟨u,(∇u)ᵀu⟩/r_ε`) | `NavierFormal.hasFDerivAt_rEps_gradTranspose`, `fderiv_rEps_apply`, `fderiv_rEps_apply_self` | Phase II complete (supporting lemma, no literature input); the `ε ↓ 0` limit to `P3density` is not proved |
+| `prop:pressure` (chain rule in the `(∇u)ᵀu` form: `∇\|u\| = (∇u)ᵀu/\|u\|`, `(∇u)ᵀu = \|u\|∇\|u\|`, `\|∇\|u\|\| = \|(∇u)ᵀu\|/\|u\|`, where `u` is differentiable and `u ≠ 0`) | `NavierFormal.fderiv_norm_apply_eq_inner_gradTranspose_div`, `gradient_norm_eq_smul_gradTranspose`, `gradTranspose_eq_smul_gradient_norm`, `norm_gradient_norm_eq` | Phase II complete (supporting lemma, no literature input) |
+| `prop:pressure` (`D₃` integrand in the manuscript's form: `\|(∇u)ᵀu\|²/\|u\| = \|u\|\|∇\|u\|\|²`, hence `D3density = \|u\|\|∇u\|_F² + \|u\|\|∇\|u\|\|²` on `{u ≠ 0}`) | `NavierFormal.norm_gradTranspose_sq_div_eq`, `D3density_eq_gradient_norm`, `D3density_eq_enstrophy_add_gradient_norm` | Phase II complete (supporting lemma, no literature input); pointwise, under `DifferentiableAt ℝ u x` and `u x ≠ 0` |
+| `prop:pressure` (`P₃` integrand in the manuscript's form: `u·∇\|u\| = ⟨u,(∇u)ᵀu⟩/\|u\|`, `P3density = p u·∇\|u\|` on `{u ≠ 0}`) | `NavierFormal.inner_self_gradient_norm`, `P3density_eq_gradient_norm` | Phase II complete (supporting lemma, no literature input); pointwise, under `DifferentiableAt ℝ u x` and `u x ≠ 0` |
+| `prop:pressure` ("the integrand is zero at `u = 0`": `∇\|u\| = 0`, `D₃`, `P₃` densities and their manuscript-form integrands vanish on `{u = 0}`; Riesz/`gradient` form) | `NavierFormal.gradient_norm_of_zero`, `D3density_of_zero`, `D3density_gradient_norm_of_zero`, `P3density_of_zero`, `P3density_gradient_norm_of_zero` | Phase II complete (supporting lemma, no literature input); `gradient_norm_of_zero` needs no differentiability of `u` |
+| `prop:pressure` (regularized chain rule in Riesz form: `∇r_ε(u) = r_ε(u)⁻¹(∇u)ᵀu`) | `NavierFormal.fderiv_rEps_apply_inner_gradTranspose`, `gradient_rEps_eq_smul_gradTranspose` | Phase II complete (supporting lemma, no literature input) |
+| `prop:pressure` (divergence identity for the tested field: `div(r_ε u) = ⟨(∇u)ᵀu,u⟩/r_ε + r_ε ∇·u`; for solenoidal `u`, `div(r_ε u) = (\|u\|/r_ε) u·∇\|u\|`; zero-set case) | `NavierFormal.sum_component_inner_fderiv`, `divergence_rEps_smul_add`, `divergence_rEps_smul`, `inner_gradTranspose_self_div_rEps_eq`, `divergence_rEps_smul_eq_gradient_norm`, `divergence_rEps_smul_of_zero` | Phase II complete (supporting lemma, no literature input); pointwise at points of differentiability with `∇·u(x) = 0`; the `ε ↓ 0` limit to `P3density` is still not proved |
 | `prop:pressure`, `def:target` (`∫\|u\|²`, `∫\|u\|³` as integrals; nonnegativity; `ofReal` bridges; measurability for continuous fields) | `NavierFormal.kineticEnergy_nonneg`, `X3Real_nonneg`, `kineticEnergyLintegral_eq`, `X3_eq_lintegral_ofReal`, `measurable_norm_sq`, `measurable_norm_pow_three` | Phase II complete (supporting lemma, no literature input) |
 | `eq:NS` (`Δ = ∑ᵢ∂ᵢ²`, `(∇p)ᵢ = ∂ᵢp`, `∇·u = ∑ᵢ(∂ᵢu)ᵢ` in Mathlib's operators) | `NavierFormal.laplacian_eq_sum_iteratedFDeriv`, `NavierFormal.IBP.laplacian_eq_sum`, `NavierFormal.inner_gradient_apply`, `gradient_component`, `divergence_eq_sum_component` | Phase II complete (supporting lemma, no literature input) |
 | `prop:energy` (`∫ ∇·F dx = 0`; product rule `∇·(pu) = u·∇p + p∇·u`) | `NavierFormal.IBP.integral_fderiv_apply_eq_zero`, `IBP.integral_divergence_eq_zero`, `IBP.divergence_smul` (auxiliary `IBP.coord`, `coord_apply`, `abs_coord_le`, `abs_divergence_le`, `fderiv_coord`, `continuous_divergence`) | Phase II complete (supporting lemma, no literature input); explicit `L¹` hypotheses, see gaps below |
@@ -83,6 +95,9 @@ found at integration are listed after the table.
 | `prop:enstrophy` (Young's inequality, conjugate exponents `4/3` and `4`) | `NavierFormal.young_four_thirds`, `young_four_thirds_eps`, `young_holderConjugate_eps`, `holderConjugate_four_thirds_four` (companions `young_five_fourths`, `young_five_fourths_eps`, `holderConjugate_five_fourths_five`) | Phase II complete (supporting lemma, no literature input) |
 | `premise:local`, `thm:conditional` (restriction of a classical solution and of the regularity package to a shorter interval; smoothness, differentiability, measurability of `u(t)`, `p(t)` at interior times) | `NavierFormal.IsClassicalSolution.mono`, `RegularityPackage.mono`, `IsClassicalSolution.contDiffAt_velocity`, `contDiffAt_pressure`, `differentiableAt_velocity`, `differentiableAt_pressure`, `differentiableAt_time`, `continuous_velocity`, `aestronglyMeasurable_velocity` (auxiliary `contDiffAt_space_of_smooth`, `contDiffAt_time_of_smooth`, `two_le_infty`, `infty_ne_zero`; `SchwartzDivFree.contDiff`, `.continuous`, `.differentiable`; `timeDerivIter_zero`, `timeDerivIter_succ`) | Phase II complete (supporting lemma, no literature input) |
 | `sec:quotient` (`𝒢₃` closed, generators in `𝒢₃`; `𝒬 ≥ 0`, `𝒬(u) ≤ ⅓‖u‖₃³`, `𝒬(0) = 0`, `𝒬(au) = \|a\|³𝒬(u)`; minimizer attains `𝒬`; `\|A\| = \|w\|²`, `A` measurable and a.e. well defined; `0` solenoidal; `D_𝒬(w,0) = 0`, strain flux linear at `0`) | `NavierFormal.isClosed_gradientSubspace`, `gradientGenerators_subset`, `memLp_gradient_toLp_mem_gradientSubspace`, `quotientFunctional_bddBelow`, `quotientFunctional_nonneg`, `quotientFunctional_le`, `quotientFunctional_le_cube`, `quotientFunctional_zero`, `quotientFunctional_smul`, `IsQuotientMinimizer.quotientFunctional_eq`, `IsQuotientMinimizer.cube_norm_eq`, `cubicMap_apply`, `norm_cubicMap`, `aestronglyMeasurable_cubicMap`, `cubicMap_congr`, `isSolenoidalL3_zero`, `quotientDissipation_zero`, `strainFlux_zero` | Phase II complete (supporting lemma, no literature input); existence/uniqueness of minimizers, coercivity, heat monotonicity, differentiability, `eq:quotient-evolution` remain paper only |
+| `sec:quotient`, `prop:scaling` (critical dilation `u_λ(x) = λu(λx)` preserves `L³` and is a linear isometry of `L³(ℝ³;ℝ³)` onto itself with inverse the dilation by `λ⁻¹`; pointwise algebra of `dilate`) | `NavierFormal.memLp_dilate`, `dilateL3` (`L3 ≃ₗᵢ[ℝ] L3`), `dilateL3_apply`, `dilateL3_symm_apply`, `coeFn_dilateL3Fun`, `norm_dilateL3Fun`, `dilateL3Fun_add`, `dilateL3Fun_smul`, `dilateL3Fun_inv_left`, `dilateL3Fun_inv_right`, `dilate_congr_ae`, `quasiMeasurePreserving_smul_space`, `dilate_add`, `dilate_const_smul`, `dilate_dilate`, `dilate_one`, `dilate_inv_dilate`, `dilate_dilate_inv` | Phase II complete (supporting lemma, no literature input); `λ > 0` |
+| `sec:quotient` (`𝒢₃` is invariant under the critical dilation: `dilate λ (∇φ) = ∇(φ(λ·))`, test potentials are closed under `x ↦ λx`, generators and `𝒢₃` are mapped onto themselves) | `NavierFormal.gradient_comp_smul`, `dilate_gradient`, `IsTestPotential.comp_smul`, `dilateL3_mem_gradientGenerators`, `dilateL3_image_gradientGenerators`, `dilateL3_map_span`, `dilateL3_image_span`, `dilateL3_mem_gradientSubspace`, `dilateL3_mem_gradientSubspace_iff`, `dilateL3_symm_mem_gradientSubspace`, `dilateL3_gradientSubspace` (auxiliary `space_eq_of_inner_eq`) | Phase II complete (supporting lemma, no literature input) |
+| `sec:quotient` ("the functional is cubic in amplitude and invariant under the critical spatial scaling": `𝒬(u_λ) = 𝒬(u)`, `𝒬(a u_λ) = \|a\|³𝒬(u)`; minimizing representatives are transported) | `NavierFormal.quotientFunctional_dilateL3`, `quotientFunctional_smul_dilateL3`, `isQuotientMinimizer_dilateL3` | Phase II complete (supporting lemma, no literature input); `λ > 0` |
 
 ## Supporting definitions (statement surface)
 
@@ -99,6 +114,7 @@ covers them.
 | Sobolev constant, cutoff family, packaged Sobolev statement | `NavierFormal.sobolevSixConst`, `sobolevBump`, `sobolevCutoff`, `SobolevSixWithoutCompactSupport` |
 | `L³`, test potentials, `𝒢₃`, `𝒬`, minimizers, `A = \|w\|w`, solenoidal, `D_𝒬`, strain flux | `NavierFormal.L3`, `IsTestPotential`, `gradientGenerators`, `gradientSubspace`, `quotientFunctional`, `IsQuotientMinimizer`, `cubicMap`, `IsSolenoidalL3`, `quotientDissipation`, `strainFlux` |
 | coordinate functional `yᵢ = ⟨eᵢ, y⟩` (bookkeeping) | `NavierFormal.IBP.coord` |
+| critical dilation on `L³` classes, `u ↦ u_λ` as a map and as a linear isometry `L³ ≃ L³` | `NavierFormal.dilateL3Fun`, `dilateL3` |
 
 Fidelity gaps between these lemmas and the proof of `prop:pressure` found at
 the CP03b integration (none of them is closed by the files above):
@@ -121,12 +137,21 @@ the CP03b integration (none of them is closed by the files above):
   (operator ≤ Frobenius). (CP03c: the comparison `‖L‖ ≤ ‖L‖_F ≤ √3‖L‖` is now
   `NavierFormal.opNorm_le_frobeniusNorm`, `frobeniusNorm_le_sqrt_three_mul`,
   and `D3density` uses the Frobenius norm.)
+- Sobolev representative, `∇|u|` form (CP03d). The pointwise dictionary between
+  the `(∇u)ᵀu` form of `D3density`, `P3density` and the manuscript's `∇\|u\|`
+  form is now `D3density_eq_gradient_norm`, `P3density_eq_gradient_norm`
+  (on `{u ≠ 0}`, at points of differentiability) with `gradient_norm_of_zero`
+  on the zero set; `gradient` is Mathlib's Riesz gradient of the Fréchet
+  derivative, so the weak-gradient identification above is still open.
 - Divergence identity. `hasFDerivAt_rEps_smul` gives the full differential of
   `r_ε u`; taking the trace, using `div u = 0`, and rewriting through
   `∇\|u\|` to reach `div(r_ε u) = (\|u\|/r_ε) u·∇\|u\|` is not done.
   (CP03c: `fderiv_rEps_apply_self` gives `d(r_ε∘u)(x)[u(x)] = ⟨u,(∇u)ᵀu⟩/r_ε`,
   the numerator of that identity in the `(∇u)ᵀu` form; the trace step and the
-  `ε ↓ 0` limit to `P3density` remain open.)
+  `ε ↓ 0` limit to `P3density` remain open.) (CP03d: the trace step is done,
+  `divergence_rEps_smul_add`, `divergence_rEps_smul`,
+  `divergence_rEps_smul_eq_gradient_norm`, pointwise at points of
+  differentiability with `∇·u(x) = 0`; the `ε ↓ 0` limit remains open.)
 - Everything integral. Testing the equation against `r_ε u`, the spatial
   cutoff, integrability of `H_ε(u)` on `ℝ³`, the `L²∩L⁶ ⇒ L³∩L⁴` interpolation,
   `p = R_iR_j(u_iu_j) ∈ L²∩L³`, dominated convergence in `ε` and in the cutoff
@@ -153,7 +178,8 @@ closed by the files above; details per row in `paper-lean-specification.md`):
   stated (R-T0).
 - `D₃`, `P₃`. Written through `(∇u)ᵀu` (amendment A2) with `a/0 = 0` at
   `u = 0`; the pointwise identity with the manuscript's `\|u\|\|∇\|u\|\|²`
-  form on `{u ≠ 0}` is not stated; `p = R_iR_j(u_iu_j)` is not encoded;
+  form on `{u ≠ 0}` is now stated (CP03d, `D3density_eq_gradient_norm`,
+  `P3density_eq_gradient_norm`); `p = R_iR_j(u_iu_j)` is not encoded;
   `D3`, `P3`, `kineticEnergy`, `X3Real` are Bochner integrals with junk
   value `0` for non-integrable integrands (R-JUNK).
 - Integration by parts. The `IBP` identities carry explicit `L¹` hypotheses
@@ -170,7 +196,11 @@ closed by the files above; details per row in `paper-lean-specification.md`):
   `∇φ`; `∇φ ∈ L³` is a hypothesis, not proved; existence and uniqueness of
   minimizers, coercivity, heat monotonicity, differentiability, and
   `eq:quotient-evolution` are not stated; `quotientDissipation` applies `Δ`
-  to a bare field.
+  to a bare field. (CP03d: the scaling invariance `𝒬(u_λ) = 𝒬(u)` is now
+  `quotientFunctional_dilateL3`, for `λ > 0`; the manuscript does not restrict
+  the sign of `λ`, and `λ < 0` is not covered. The transported minimizer
+  statement `isQuotientMinimizer_dilateL3` quantifies over given minimizers
+  and asserts no existence.)
 
 Axiom reports are recorded here after each integration.
 
@@ -252,3 +282,45 @@ depends on axioms: [propext, Quot.sound]
 
 No project axiom is involved; `NavierFormal/Literature/` is unchanged and
 still contains no axiom.
+
+## Axiom report: CP03d integration (2026-09-05)
+
+Checked with `lake env lean research/check_cp03d.lean` after a clean
+`lake build` (only warning: the pre-existing `sorry` in `Challenge.lean:19`;
+no warning from either new file). All 56 declarations of
+`NavierFormal/DensityBridge.lean` (22) and `NavierFormal/QuotientScaling.lean`
+(34) listed in `research/check_cp03d.lean` — every declaration of the two
+files — reported exactly
+
+```
+depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+From `NavierFormal/DensityBridge.lean` (22):
+`NavierFormal.fderiv_norm_apply_eq_inner_gradTranspose_div`,
+`gradient_norm_eq_smul_gradTranspose`, `gradTranspose_eq_smul_gradient_norm`,
+`norm_gradient_norm_eq`, `norm_gradTranspose_sq_div_eq`,
+`D3density_eq_gradient_norm`, `D3density_eq_enstrophy_add_gradient_norm`,
+`inner_self_gradient_norm`, `P3density_eq_gradient_norm`,
+`gradient_norm_of_zero`, `D3density_of_zero`,
+`D3density_gradient_norm_of_zero`, `P3density_of_zero`,
+`P3density_gradient_norm_of_zero`, `fderiv_rEps_apply_inner_gradTranspose`,
+`gradient_rEps_eq_smul_gradTranspose`, `sum_component_inner_fderiv`,
+`divergence_rEps_smul_add`, `divergence_rEps_smul`,
+`inner_gradTranspose_self_div_rEps_eq`,
+`divergence_rEps_smul_eq_gradient_norm`, `divergence_rEps_smul_of_zero`.
+From `NavierFormal/QuotientScaling.lean` (34): `dilate_add`,
+`dilate_const_smul`, `dilate_dilate`, `dilate_one`, `dilate_inv_dilate`,
+`dilate_dilate_inv`, `quasiMeasurePreserving_smul_space`, `dilate_congr_ae`,
+`memLp_dilate`, `dilateL3Fun`, `coeFn_dilateL3Fun`, `norm_dilateL3Fun`,
+`dilateL3Fun_add`, `dilateL3Fun_smul`, `dilateL3Fun_inv_left`,
+`dilateL3Fun_inv_right`, `dilateL3`, `dilateL3_apply`, `dilateL3_symm_apply`,
+`space_eq_of_inner_eq`, `gradient_comp_smul`, `dilate_gradient`,
+`IsTestPotential.comp_smul`, `dilateL3_mem_gradientGenerators`,
+`dilateL3_image_gradientGenerators`, `dilateL3_map_span`,
+`dilateL3_image_span`, `dilateL3_mem_gradientSubspace`,
+`dilateL3_mem_gradientSubspace_iff`, `dilateL3_symm_mem_gradientSubspace`,
+`dilateL3_gradientSubspace`, `quotientFunctional_dilateL3`,
+`quotientFunctional_smul_dilateL3`, `isQuotientMinimizer_dilateL3` (all in
+namespace `NavierFormal`). No project axiom is involved;
+`NavierFormal/Literature/` is unchanged and still contains no axiom.

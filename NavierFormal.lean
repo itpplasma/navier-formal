@@ -9,3 +9,5 @@ import NavierFormal.IBP
 import NavierFormal.Interpolation
 import NavierFormal.QuotientObjects
 import NavierFormal.SolutionClass
+import NavierFormal.DensityBridge
+import NavierFormal.QuotientScaling

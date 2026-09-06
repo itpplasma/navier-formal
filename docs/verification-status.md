@@ -30,7 +30,22 @@ isometry of `L³` onto itself and the invariance `𝒬(u_λ) = 𝒬(u)` of
 `sec:quotient`). Every labelled
 manuscript result keeps the status in the table below; the fidelity audit of
 each definition is in `paper-lean-specification.md`.
-`Challenge.lean` still carries only the labelled placeholder. The
+**Update 2026-09-06.** `Challenge.lean` no longer carries a placeholder. The
+advertised surface is landed: nine CP1 statements declared with Mathlib-only
+definitions in `Challenge.lean` and re-declared and proved in `Solution.lean`,
+with type identity verified mechanically under `set_option pp.all true` rather
+than by eye, and every advertised theorem checked axiom-clean against
+`{propext, Quot.sound, Classical.choice}`. Only Phase II complete results are
+advertised; every paper-only proposition is deliberately excluded, because
+advertising a fragment of an unproved proposition would misrepresent the state.
+The same day, two further modules landed and are in the build:
+`NavierFormal/Energy.lean` (14 declarations) toward `prop:energy` and
+`NavierFormal/Pressure.lean` (26 declarations) toward `prop:pressure`, both
+building clean and both fully axiom-clean, 14/14 and 26/26 checked. Neither
+proposition is complete, so neither changes a status row below; they are
+supporting infrastructure. A third lane on the PDE half of `prop:scaling` was
+stopped mid-write and its output discarded rather than committed, since it did
+not build. The
 machine-readable boundary is `formalization-coverage.yaml`; literature inputs
 are in `literature-assumptions.yaml`.
 

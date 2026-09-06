@@ -3,8 +3,37 @@ theorem: navier-cp1-conditional-clay-a
 end_to_end_trust_zero_lean_theorem: false
 end_to_end_axiom_dependent_lean_theorem: false
 boundary:
-  overall_status: skeleton
+  overall_status: partial-statement-surface-landed
   literature_inputs: [tao-2013-theorem-5-4, gkp-2013-theorem-4]
   open_project_inputs: [hyp-critical]
   authoritative_boundary: docs/literature-assumptions.yaml
-declarations: []
+declarations:
+  # Advertised surface (Challenge.lean states, Solution.lean proves).
+  # Every entry verified axiom-clean: {propext, Quot.sound, Classical.choice}.
+  - name: NavierFormal.CP1.eLpNorm_dilation
+    manuscript_label: prop:scaling
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.eLpNorm_dilation_slice
+    manuscript_label: prop:scaling
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.eLpNorm_dilation_three
+    manuscript_label: prop:scaling
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.eLpNorm_dilation_two_sq
+    manuscript_label: prop:scaling
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.exists_memLp_four_not_memLp_top
+    manuscript_label: rem:mismatch
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.exists_memLp_four_eLpNorm_top_eq_top
+    manuscript_label: rem:mismatch
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.L4L3_supercritical
+    manuscript_label: rem:mismatch
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.scalar_obstruction_exists
+    manuscript_label: prop:ode
+    status: phase-ii-complete
+  - name: NavierFormal.CP1.integral_scalar_obstruction
+    manuscript_label: prop:ode
+    status: phase-ii-complete

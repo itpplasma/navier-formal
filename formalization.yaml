@@ -67,9 +67,19 @@ related_formalizations: []
 
 status:
   scope: >-
-    Skeleton only. The advertised statements have not yet been written; see
-    the CP1 stage gates in itpplasma/navier PLAN.md.
-  sorry_count: 0
+    Partial. The advertised statement surface is written and proved: nine CP1
+    statements are declared with Mathlib-only definitions in Challenge.lean and
+    re-declared and proved in Solution.lean, with type identity checked
+    mechanically at pp.all. They are the Phase II complete results only: the
+    norm-scaling half of prop:scaling including critical L3 invariance, the two
+    scalar remarks of its proof, and prop:ode. Everything else in CP1 remains
+    paper only and is deliberately not advertised; see the CP1 stage gates and
+    the Phase II programme in itpplasma/navier PLAN.md.
+  sorry_count: 9
+  sorry_note: >-
+    All nine are the intended statement-only sorries in Challenge.lean, which
+    is the advertised surface. Solution.lean has none, and no other file in the
+    repository has any.
   sorry_in_definitions: 0
   axioms: []
 
@@ -100,6 +110,15 @@ review:
 
 alignment:
   namespace: "NavierFormal"
-  statements: []
+  statements:
+    - "NavierFormal.CP1.eLpNorm_dilation"
+    - "NavierFormal.CP1.eLpNorm_dilation_slice"
+    - "NavierFormal.CP1.eLpNorm_dilation_three"
+    - "NavierFormal.CP1.eLpNorm_dilation_two_sq"
+    - "NavierFormal.CP1.exists_memLp_four_not_memLp_top"
+    - "NavierFormal.CP1.exists_memLp_four_eLpNorm_top_eq_top"
+    - "NavierFormal.CP1.L4L3_supercritical"
+    - "NavierFormal.CP1.scalar_obstruction_exists"
+    - "NavierFormal.CP1.integral_scalar_obstruction"
 
 acknowledgements: "Lean 4, Mathlib, Palomar template."

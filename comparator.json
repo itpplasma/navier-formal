@@ -1,8 +1,22 @@
 {
   "challenge_module": "Challenge",
   "solution_module": "Solution",
-  "theorem_names": ["NavierFormal.skeleton_placeholder"],
+  "theorem_names": [
+    "NavierFormal.CP1.eLpNorm_dilation",
+    "NavierFormal.CP1.eLpNorm_dilation_slice",
+    "NavierFormal.CP1.eLpNorm_dilation_three",
+    "NavierFormal.CP1.eLpNorm_dilation_two_sq",
+    "NavierFormal.CP1.exists_memLp_four_not_memLp_top",
+    "NavierFormal.CP1.exists_memLp_four_eLpNorm_top_eq_top",
+    "NavierFormal.CP1.L4L3_supercritical",
+    "NavierFormal.CP1.scalar_obstruction_exists",
+    "NavierFormal.CP1.integral_scalar_obstruction"
+  ],
   "definition_names": [],
-  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
   "enable_nanoda": true
 }

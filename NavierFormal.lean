@@ -11,3 +11,5 @@ import NavierFormal.QuotientObjects
 import NavierFormal.SolutionClass
 import NavierFormal.DensityBridge
 import NavierFormal.QuotientScaling
+import NavierFormal.Energy
+import NavierFormal.Pressure

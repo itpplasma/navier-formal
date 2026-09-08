@@ -27,7 +27,7 @@ import Mathlib.Analysis.InnerProductSpace.Trace
 Community reference copied and specialised from:
 https://github.com/google-deepmind/formal-conjectures/blob/8bf45ed70d48b2b2a501de9c00b26bfa38c573ee/FormalConjectures/Millenium/NavierStokes.lean
 (Apache-2.0), the definitions OpenAI's Lean certificate uses for alternatives (C)/(D)
-(`/home/ert/proj/openai-NavierStokesAndEuler/ComparatorChallenges/NavierStokes.lean`).
+(`<local clone of openai/NavierStokesAndEuler at 8937a8f4>/ComparatorChallenges/NavierStokes.lean`).
 
 This is task **FC0** (statement alignment): it does **not** import the reference file, it
 re-states, verbatim in mathematical content, exactly the definitions needed for alternative

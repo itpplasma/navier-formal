@@ -29,7 +29,7 @@ sources:
       - "Christopher Albert"
     type: "manuscript"
     relationship: "formalizes"
-    note: "Private unpublished manuscript; the formalization follows its statements and proofs."
+    note: "Unpublished manuscript (private repository itpplasma/navier-paper); the formalization follows its statements and proofs."
     license: "unknown"
   - title: "Existence and smoothness of the Navier–Stokes equation"
     authors:

@@ -108,7 +108,7 @@ statements).
 ## External axiom report: `openai/NavierStokesAndEuler@8937a8f4` (2026-09-08)
 
 Local replication on a 32-core machine, clone at
-`/home/ert/proj/openai-NavierStokesAndEuler` (outside all project repos),
+`<local clone of openai/NavierStokesAndEuler at 8937a8f4>` (outside all project repos),
 toolchain `leanprover/lean4:v4.34.0-rc2`, `lake exe cache get` then
 `lake build NavierStokes` (580 project modules, about 20 minutes wall clock,
 zero errors). The `#print axioms` lines at the end of

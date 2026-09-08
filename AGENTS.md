@@ -48,6 +48,11 @@ generic namespace so that it can later move to a library.
   `docs/paper-lean-specification.md`.
 - Do not vendor Mathlib or copy external Lean code without its licence and
   attribution. Do not commit `.lake/`, oleans, or PDFs.
-- Private repository. No Palomar registration, submission, publication, or
+- Public since 2026-09-08 (Apache-2.0). No Palomar registration, submission, journal publication, or
   contact without the owner's explicit authorization. Signed commits only;
   do not bypass signing.
+
+
+Publication note (2026-09-08): this repository and `itpplasma/navier` are
+public; `navier-paper` stays private. No submission, Palomar registration or
+outside contact is authorized by that change.

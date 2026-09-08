@@ -1,6 +1,6 @@
 # External audit: `openai/NavierStokesAndEuler`
 
-Audited clone: `/home/ert/proj/openai-NavierStokesAndEuler`, commit
+Audited clone: `<local clone of openai/NavierStokesAndEuler at 8937a8f4>`, commit
 `8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538` (2026-09-08). Lean
 `v4.34.0-rc2`, Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. Read-only
 audit; no build was run. All file:line references are to this clone unless
@@ -643,11 +643,11 @@ present in each file's own source).
 
 ## Summary of file locations referenced
 
-- Challenge (adapted comparator): `/home/ert/proj/openai-NavierStokesAndEuler/ComparatorChallenges/NavierStokes.lean`
-- Upstream original (for diff): `/tmp/claude-1000/-home-ert-proj-navier/e3e4d7f7-0e11-4d8c-a55c-18aafe035a2c/scratchpad/fc-NavierStokes.lean`
+- Challenge (adapted comparator): `<local clone of openai/NavierStokesAndEuler at 8937a8f4>/ComparatorChallenges/NavierStokes.lean`
+- Upstream original (for diff): `<session scratch path>`
 - Solution adapters: `NavierStokes/ComparatorSolution.lean`, `NavierStokes/ComparatorTheorem.lean`, `NavierStokes/ComparatorR3Theorem.lean`, `NavierStokes/ComparatorBridge.lean`, `NavierStokes/ComparatorR3Bridge.lean`, `NavierStokes/ComparatorDefinitions.lean`
 - Paper-faithful (unproved-for-R³) statement layer: `NavierStokes/ProblemStatement.lean`, `NavierStokes/R3/ProblemStatement.lean`
 - Periodic route-invariant infrastructure: `NavierStokes/PeriodicUniqueness.lean`, `NavierStokes/PeriodicIntegration.lean`
 - Whole-space route-invariant infrastructure: `NavierStokes/R3/*.lean` (64 files; key ones cited above)
 - Metadata: `formalization.yaml`, `ComparatorChallenges/NavierStokes.json`, `lakefile.toml`, `lake-manifest.json`, `lean-toolchain`, `LICENSE`
-- Our own conventions compared against: `/home/ert/proj/navier-formal/NavierFormal/SolutionClass.lean`, `/home/ert/proj/navier-formal/NavierFormal/Calculus.lean`, `/home/ert/proj/navier-formal/AGENTS.md`
+- Our own conventions compared against: `../navier-formal/NavierFormal/SolutionClass.lean`, `../navier-formal/NavierFormal/Calculus.lean`, `../navier-formal/AGENTS.md`

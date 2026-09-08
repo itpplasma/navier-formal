@@ -1,6 +1,6 @@
 # navier-formal
 
-Lean 4 formalization of checkpoint CP1 of a private research programme on the
+Lean 4 formalization of checkpoint CP1 of a research programme on the
 three-dimensional incompressible Navier–Stokes Cauchy problem. CP1 is the
 manuscript's conditional route: energy identity, critical scaling, cubic
 enstrophy inequality, signed critical pressure balance, low-frequency pressure
@@ -21,4 +21,49 @@ Build with `lake build` (Lean `v4.34.0-rc2`, Mathlib `v4.34.0-rc2`, commit
 `NavierFormal/External/` may import; see `docs/external-openai-audit.md`). Status and axiom
 reports are in `docs/verification-status.md`; literature inputs in
 `docs/literature-assumptions.yaml`; the paper-to-Lean correspondence in
-`docs/paper-lean-specification.md`. The repository is private.
+`docs/paper-lean-specification.md`. The repository was made public on
+2026-09-08 under Apache-2.0 as a documented record of the work before and
+after OpenAI's forced-blowup release of the same day.
+
+## Public status and disclaimer (2026-09-08)
+
+No solution of the Millennium problem, no priority claim, and no dependence
+of any unforced statement on the forced OpenAI result is asserted. Advertised
+Palomar surface: nine CP1 statements in `Challenge.lean`, all Phase II. The
+conditional theorem `NavierFormal.conditional_clay_A_of_tao`
+(`CriticalHypothesis → ClayAlternativeA_all`) is Phase I over exactly two
+named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
+`NavierFormal.Literature.endpointContinuation`, kept in the separate library
+`NavierFormalConditional`. The research context, status and allocation are in
+the companion repository `itpplasma/navier` (`PLAN.md`). The manuscript
+repository stays private for now.
+
+## Blockers for anyone continuing this work
+
+Formal, in order of value:
+
+1. `‖D²u‖₂ = ‖Δu‖₂` for compactly supported smooth `u` on `ℝ³` (Hilbert–Schmidt
+   square of the Hessian). Two integration-by-parts attempts failed to
+   compile; a Fourier/Plancherel route through Mathlib is untried. It unlocks
+   the gradient interpolation `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and removes the
+   explicit interpolation hypothesis from `serrin_enstrophy_bound` and
+   `enstrophy_inequality`.
+2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`
+   (uniform `L²` bound, identification of the abstract enstrophy with the
+   gradient norm, `SerrinHypotheses`, interval-integral monotonicity) from
+   `taoLocalTheory`, so that `conditional_clay_A` depends on `taoLocalTheory`
+   and `essL3ToL5` only.
+3. `lem:R-consequences`(a): the `L²` difference-quotient limit of `u` in time
+   from the regularity package alone (needs a Bochner Taylor remainder with
+   Minkowski's integral inequality); currently a clause of `taoLocalTheory`.
+4. Formalize the Leray–Hopf weak-solution class so that `essL3ToL5` can be
+   split into ESS Theorem 1.3 verbatim plus a proved `lem:leray-hopf`.
+5. Phase II of `taoLocalTheory` (local classical theory for Schwartz data):
+   standard PDE, absent from Mathlib, large.
+6. Statement surface: `IsClassicalSolution` has no integrability class, so
+   `CriticalBound` quantifies over a wider family than the manuscript's
+   `hyp:critical`; the direction `hyp:critical → CriticalBound` needs
+   uniqueness in the class.
+
+Mathematical: the only open input of the positive route is the finite-horizon
+critical `L³` bound `hyp:critical`; nothing in either repository produces it.

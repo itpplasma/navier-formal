@@ -128,6 +128,24 @@ zero errors) printed the same three axioms for `Euler.euler_breakdown_R3` and
 `Euler.exists_compact_smooth_euler_singularity` (unforced Euler blowup from
 compactly supported data).
 
+
+**Update 2026-09-08, second run (residual queue of PLAN 8.2a).** Five more
+lanes landed after one clean `lake build` (3272 jobs) and axiom checks
+(`research/check_{taosplit,esssplit,cubic,nuglobal,energybridge}.lean`, 34
+declarations: 30 standard-only, 4 depending exactly on the named literature
+axioms below). A second attempt at `‖D²u‖₂ = ‖Δu‖₂` (`HessianLaplacian`)
+again did not compile and is not in the repository.
+
+| Manuscript label | Lean declaration | Status |
+| --- | --- | --- |
+| `prop:localtheory` split (FC1 residual) | axiom `NavierFormal.Literature.taoLocalTheory` (`Literature/TaoLocalTheory.lean`): pure Tao clauses on our class (classical solution, `RegularityPackage`, `BoundedDerivatives`, one-sided smoothness on `Ico 0 T`, equations at `t = 0`, `C¹_t L²` and `C_t H¹` clauses, `L²` continuity at `0`, `H¹` blow-up alternative, uniqueness); theorem `NavierFormal.localTheory_of_tao` (`LocalTheoryBridge.lean`) proves the old coarse axiom's statement | Phase I improved: `lem:global-smooth` and the finite energy bound (`prop:energy` consequence, via `EnergyIdentity.energy_nonincreasing` and a datum-truncation device) are now PROVED from `taoLocalTheory`. The old `Literature.localTheory` is retained only for comparison. `conditional_clay_A_of_tao : CriticalHypothesis → ClayAlternativeA_all` depends exactly on `taoLocalTheory` and `endpointContinuation`. |
+| `thm:ess` / `lem:l3-to-l5` (FC2 residual) | axiom `NavierFormal.Literature.essL3ToL5` (`Literature/ESS.lean`): ESS Theorem 1.3 plus `lem:leray-hopf`, on the classical branch, real `T_*` | Phase I axiom, purer than `endpointContinuation` (the Serrin step and the contradiction are no longer inside it). |
+| `lem:serrin-enstrophy` | `NavierFormal.enstrophy_differential_inequality` (Hölder `1/5+3/10+1/2`, Young `(5/4,5)`), `SerrinHypotheses`, `serrin_enstrophy_bound_sq`, `serrin_enstrophy_bound` with the manuscript's `C_* = (256/3125) C_S³` (`SerrinEnstrophy.lean`) | Phase II complete for the differential inequality and its Grönwall integration under explicit hypotheses; the combined Sobolev/interpolation bound `‖∇u‖_{10/3} ≤ Y^{1/5}(C_S‖Δu‖₂)^{3/5}` is an explicit hypothesis (needs `‖D²u‖₂ = ‖Δu‖₂`, still open). |
+| `thm:continuation` proof | `NavierFormal.endpointContinuation_of_ess` (`EndpointBridge.lean`) | Proved from `essL3ToL5` and `serrin_enstrophy_bound` with four extra explicit hypotheses (uniform `L²` bound, identification of `Y` with the gradient norm, `SerrinHypotheses`, interval-integral monotonicity). Because of those hypotheses the coarse `endpointContinuation` axiom remains the consumer of `conditional_clay_A(_of_tao)`; discharging them is the next FC2 step. |
+| `prop:enstrophy` cubic inequality `eq:enstrophy` | `NavierFormal.enstrophy_inequality_of_interpolation` (real lemma, Young `4/3, 4`), `enstrophy_inequality` (`EnstrophyInequality.lean`) | Phase II complete under explicit Hölder, Sobolev and interpolation hypotheses; constant explicit but not the manuscript's `2187/32 C_S⁶` form. |
+| UE4 viscosity rescaling | `IsGlobalSmoothSolution.rescale`, `rescale_iff`, `IsClassicalSolution.rescale` (general `c > 0`, generalising `nuNormalization`), `SpeedUnboundedAt.rescale`, `UniformFiniteEnergyOn.rescale`, `UnforcedCounterexample.rescale`, `.nuNormalization`, `.of_nuNormalization`, `unforcedCounterexampleSome_iff`, `unforcedCounterexampleAll_iff` (`NuRescaling.lean`) | Phase II complete (no literature input); closes the `Blowup.lean` gap. |
+| `prop:energy` hypotheses from the regularity package | `EnergyHypotheses.mem_L2_of_bridges`, `mem_L2_timeDeriv_of_bridges`, `spatialIntegrability_of_bridges`, `of_regularity`, `energy_identity_of_regularity`; `timeDeriv_eq_fderiv_apply_of_smooth`, `continuous_timeDeriv_of_smooth` (`EnergyBridge.lean`) | Phase II complete for three of five bundle fields; `hasL2Deriv` (`lem:R-consequences`(a)) and `dissipation_intervalIntegrable` remain explicit hypotheses (now supplied by `taoLocalTheory` clauses in the bridge above). |
+
 ## Supporting lemmas
 
 Supporting lemmas formalize single sentences inside a manuscript proof, not a

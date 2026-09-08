@@ -30,13 +30,13 @@ literature_inputs:
   - id: tao-2013-theorem-5-4
     statement: local classical theory for Schwartz divergence-free data on R3
     source: Tao, APDE 6 (2013), Theorem 5.4 with Corollaries 4.3 and 5.8, via manuscript prop:localtheory and lem:nu-scaling
-    lean: NavierFormal.Literature.localTheory (NavierFormal/Literature/LocalTheory.lean)
-    status: LITERATURE-INPUT (coarse; packages manuscript-owned bridges, see module docstring)
+    lean: NavierFormal.Literature.taoLocalTheory (NavierFormal/Literature/TaoLocalTheory.lean); coarse predecessor NavierFormal.Literature.localTheory proved from it in LocalTheoryBridge.lean
+    status: LITERATURE-INPUT (lem:global-smooth and the energy bound now proved, not assumed)
   - id: ess-2003-theorem-1-3
     statement: L^infty_t L^3_x Leray-Hopf solution is in L^5, hence smooth and unique (endpoint continuation)
     source: Escauriaza, Seregin, Sverak, Russian Math. Surveys 58 (2003), Theorem 1.3; manuscript thm:ess, thm:continuation
-    lean: NavierFormal.Literature.endpointContinuation (NavierFormal/Literature/Endpoint.lean)
-    status: LITERATURE-INPUT (coarse; states thm:continuation, i.e. Theorem 1.3 plus lem:leray-hopf, lem:l3-to-l5, lem:serrin-enstrophy)
+    lean: NavierFormal.Literature.essL3ToL5 (NavierFormal/Literature/ESS.lean, Theorem 1.3 plus lem:leray-hopf); coarse NavierFormal.Literature.endpointContinuation still consumed by conditional_clay_A, partially derived in EndpointBridge.lean under explicit hypotheses
+    status: LITERATURE-INPUT (lem:serrin-enstrophy and the contradiction argument now proved)
   - id: gkp-2013-theorem-4
     statement: maximal L3 solution with bounded L3 norm is global (ESS endpoint)
     source: Gallagher–Koch–Planchon, arXiv:1012.0145, Theorem 4

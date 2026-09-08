@@ -7,6 +7,7 @@ boundary:
   conditional_theorem: NavierFormal.conditional_clay_A (lib NavierFormalConditional; axioms localTheory, endpointContinuation)
   external_dependency: openai/NavierStokesAndEuler@8937a8f4 (Solution-only; NavierFormal/External/)
   literature_inputs: [tao-2013-theorem-5-4, ess-2003-theorem-1-3, gkp-2013-theorem-4]
+  axioms_in_repository: [NavierFormal.Literature.taoLocalTheory, NavierFormal.Literature.localTheory, NavierFormal.Literature.essL3ToL5, NavierFormal.Literature.endpointContinuation]
   open_project_inputs: [hyp-critical]
   authoritative_boundary: docs/literature-assumptions.yaml
 declarations:
@@ -68,3 +69,20 @@ declarations:
   - name: NavierFormal.External.classical_uniqueness_of_compact_support_nu
     manuscript_label: none (PLAN FC6; [OA] Lemma 10.5)
     status: phase-ii-complete-via-external-dependency
+  - name: NavierFormal.conditional_clay_A_of_tao
+    manuscript_label: thm:conditional
+    status: phase-i
+    axioms: [NavierFormal.Literature.taoLocalTheory, NavierFormal.Literature.endpointContinuation]
+  - name: NavierFormal.serrin_enstrophy_bound
+    manuscript_label: lem:serrin-enstrophy
+    status: phase-ii-complete-under-explicit-hypotheses
+  - name: NavierFormal.endpointContinuation_of_ess
+    manuscript_label: thm:continuation
+    status: phase-i-under-explicit-hypotheses
+    axioms: [NavierFormal.Literature.essL3ToL5]
+  - name: NavierFormal.enstrophy_inequality
+    manuscript_label: prop:enstrophy
+    status: phase-ii-complete-under-explicit-hypotheses
+  - name: NavierFormal.UnforcedCounterexample.nuNormalization
+    manuscript_label: none (PLAN UE4 statement surface)
+    status: phase-ii-complete

@@ -1,0 +1,7 @@
+import NavierFormal.EnstrophyInequality
+
+#print axioms NavierFormal.mul_sqrt_self_eq_rpow
+#print axioms NavierFormal.rpow_four_thirds_mul_sqrt_self
+#print axioms NavierFormal.rpow_four_mul_sqrt_self
+#print axioms NavierFormal.enstrophy_inequality_of_interpolation
+#print axioms NavierFormal.enstrophy_inequality

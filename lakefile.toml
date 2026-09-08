@@ -24,7 +24,7 @@ name = "NavierFormal"
 # standard. Never imported by Challenge.lean or Solution.lean.
 [[lean_lib]]
 name = "NavierFormalConditional"
-roots = ["NavierFormal.Conditional"]
+roots = ["NavierFormal.Conditional", "NavierFormal.LocalTheoryBridge", "NavierFormal.EndpointBridge"]
 
 [[lean_lib]]
 name = "Challenge"

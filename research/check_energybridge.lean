@@ -1,0 +1,9 @@
+import NavierFormal.EnergyBridge
+
+#print axioms NavierFormal.timeDeriv_eq_fderiv_apply_of_smooth
+#print axioms NavierFormal.continuous_timeDeriv_of_smooth
+#print axioms NavierFormal.EnergyIdentity.EnergyHypotheses.mem_L2_of_bridges
+#print axioms NavierFormal.EnergyIdentity.EnergyHypotheses.mem_L2_timeDeriv_of_bridges
+#print axioms NavierFormal.EnergyIdentity.EnergyHypotheses.spatialIntegrability_of_bridges
+#print axioms NavierFormal.EnergyIdentity.EnergyHypotheses.of_regularity
+#print axioms NavierFormal.EnergyIdentity.energy_identity_of_regularity

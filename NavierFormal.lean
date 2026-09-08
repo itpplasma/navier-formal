@@ -22,3 +22,7 @@ import NavierFormal.PressureLimit
 import NavierFormal.ClassBridges
 import NavierFormal.Blowup
 import NavierFormal.External.OpenAIUniqueness
+import NavierFormal.EnstrophyInequality
+import NavierFormal.NuRescaling
+import NavierFormal.EnergyBridge
+import NavierFormal.SerrinEnstrophy

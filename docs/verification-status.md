@@ -123,8 +123,10 @@ This replicates the self-reported axiom claim for the two advertised
 Navier–Stokes theorems with Lean's kernel on this machine. It is NOT a
 Comparator/NanoDa replay, NOT a statement-faithfulness certification beyond
 `docs/external-openai-audit.md` §1, and NOT a mathematical review of the
-paper. The `Euler` library build was started separately; its outcome is not
-recorded here unless stated below.
+paper. The `Euler` library (`lake build Euler`, 1829 modules, about one hour,
+zero errors) printed the same three axioms for `Euler.euler_breakdown_R3` and
+`Euler.exists_compact_smooth_euler_singularity` (unforced Euler blowup from
+compactly supported data).
 
 ## Supporting lemmas
 

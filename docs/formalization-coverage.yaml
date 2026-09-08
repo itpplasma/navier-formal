@@ -1,10 +1,12 @@
 schema_version: 1
 theorem: navier-cp1-conditional-clay-a
 end_to_end_trust_zero_lean_theorem: false
-end_to_end_axiom_dependent_lean_theorem: false
+end_to_end_axiom_dependent_lean_theorem: true  # conditional_clay_A over two coarse literature axioms, 2026-09-08
 boundary:
-  overall_status: partial-statement-surface-landed
-  literature_inputs: [tao-2013-theorem-5-4, gkp-2013-theorem-4]
+  overall_status: partial-statement-surface-landed-plus-formal-core-2026-09-08
+  conditional_theorem: NavierFormal.conditional_clay_A (lib NavierFormalConditional; axioms localTheory, endpointContinuation)
+  external_dependency: openai/NavierStokesAndEuler@8937a8f4 (Solution-only; NavierFormal/External/)
+  literature_inputs: [tao-2013-theorem-5-4, ess-2003-theorem-1-3, gkp-2013-theorem-4]
   open_project_inputs: [hyp-critical]
   authoritative_boundary: docs/literature-assumptions.yaml
 declarations:
@@ -37,3 +39,32 @@ declarations:
   - name: NavierFormal.CP1.integral_scalar_obstruction
     manuscript_label: prop:ode
     status: phase-ii-complete
+  # 2026-09-08 formal core (not advertised in Challenge.lean; see verification-status.md)
+  - name: NavierFormal.conditional_clay_A
+    manuscript_label: thm:conditional
+    status: phase-i-coarse
+    axioms: [NavierFormal.Literature.localTheory, NavierFormal.Literature.endpointContinuation]
+  - name: NavierFormal.ClayReference.clayAlternativeA_iff
+    manuscript_label: def:target
+    status: phase-ii-complete
+  - name: NavierFormal.SchwartzDivFree.decay_fefferman
+    manuscript_label: thm:conditional
+    status: phase-ii-complete
+  - name: NavierFormal.IsClassicalSolution.dilate
+    manuscript_label: prop:scaling
+    status: phase-ii-complete
+  - name: NavierFormal.EnergyIdentity.energy_identity
+    manuscript_label: prop:energy
+    status: phase-ii-complete-under-explicit-hypotheses
+  - name: NavierFormal.enstrophy_identity_pointwise_time
+    manuscript_label: prop:enstrophy
+    status: phase-ii-complete-under-explicit-hypotheses
+  - name: NavierFormal.IsClassicalSolution.lipschitzWith_velocity
+    manuscript_label: premise:local
+    status: phase-ii-complete
+  - name: NavierFormal.UnforcedCounterexample.not_clayAlternativeA_all
+    manuscript_label: def:target
+    status: phase-ii-complete
+  - name: NavierFormal.External.classical_uniqueness_of_compact_support_nu
+    manuscript_label: none (PLAN FC6; [OA] Lemma 10.5)
+    status: phase-ii-complete-via-external-dependency

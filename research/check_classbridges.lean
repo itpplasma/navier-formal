@@ -1,0 +1,44 @@
+import NavierFormal.ClassBridges
+
+/-!
+Axiom check for `NavierFormal/ClassBridges.lean` (PLAN task FC5, "class bridges").
+Run with `lake env lean research/check_classbridges.lean`.
+-/
+
+open NavierFormal
+
+#print axioms NavierFormal.BoundedDerivatives.mono
+#print axioms NavierFormal.BoundedDerivatives.bound_u_at
+#print axioms NavierFormal.BoundedDerivatives.bound_p_at
+#print axioms NavierFormal.RegularityPackage.eLpNorm_two_lt_top_u
+#print axioms NavierFormal.RegularityPackage.eLpNorm_two_lt_top_p
+#print axioms NavierFormal.one_le_infty
+#print axioms NavierFormal.norm_iteratedFDeriv_two_eq_norm_fderiv_fderiv
+#print axioms NavierFormal.norm_gradient_eq_norm_fderiv
+#print axioms NavierFormal.eLpNorm_iteratedFDeriv_zero
+#print axioms NavierFormal.eLpNorm_iteratedFDeriv_one
+#print axioms NavierFormal.eLpNorm_iteratedFDeriv_one_gradient
+#print axioms NavierFormal.lipschitzWith_of_bounded_fderiv
+#print axioms NavierFormal.IsClassicalSolution.lipschitzWith_velocity
+#print axioms NavierFormal.holderTriple_two_two_one
+#print axioms NavierFormal.integrable_mul_of_memLp_two
+#print axioms NavierFormal.IsClassicalSolution.contDiff_velocity
+#print axioms NavierFormal.IsClassicalSolution.contDiff_pressure
+#print axioms NavierFormal.IsClassicalSolution.continuous_pressure
+#print axioms NavierFormal.IsClassicalSolution.memLp_two_velocity
+#print axioms NavierFormal.IsClassicalSolution.memLp_two_fderiv_velocity
+#print axioms NavierFormal.IsClassicalSolution.memLp_two_iteratedFDeriv_two_velocity
+#print axioms NavierFormal.IsClassicalSolution.memLp_two_pressure
+#print axioms NavierFormal.IsClassicalSolution.memLp_two_gradient_pressure
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_velocity_mul_norm_fderiv
+#print axioms NavierFormal.IsClassicalSolution.integrable_enstrophyDensity_velocity
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_velocity_mul_norm_iteratedFDeriv_two
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_velocity_mul_norm_fderiv_fderiv
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_pressure_mul_norm_velocity
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_pressure_mul_norm_fderiv_velocity
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_gradient_pressure_mul_norm_velocity
+#print axioms NavierFormal.IsClassicalSolution.exists_bound_velocity
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_velocity_pow_three
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_velocity_sq_mul_norm_fderiv
+#print axioms NavierFormal.IsClassicalSolution.memLp_three_velocity
+#print axioms NavierFormal.IsClassicalSolution.integrable_norm_laplacian_velocity_sq

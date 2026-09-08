@@ -13,3 +13,12 @@ import NavierFormal.DensityBridge
 import NavierFormal.QuotientScaling
 import NavierFormal.Energy
 import NavierFormal.Pressure
+import NavierFormal.SchwartzDecay
+import NavierFormal.ClayReference
+import NavierFormal.ScalingPDE
+import NavierFormal.EnergyIdentity
+import NavierFormal.EnstrophyIdentity
+import NavierFormal.PressureLimit
+import NavierFormal.ClassBridges
+import NavierFormal.Blowup
+import NavierFormal.External.OpenAIUniqueness

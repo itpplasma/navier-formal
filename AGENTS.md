@@ -28,8 +28,15 @@ generic namespace so that it can later move to a library.
 
 ## Working rules
 
-- Toolchain and Mathlib are pinned (`lean-toolchain`, `lakefile.toml`).
-  Do not bump them without the controller.
+- Toolchain and Mathlib are pinned (`lean-toolchain`, `lakefile.toml`) to
+  `v4.34.0-rc2` / Mathlib `85e3a25e`, the pin of the external Solution-only
+  dependency `openai/NavierStokesAndEuler@8937a8f4` (Apache-2.0). Do not bump
+  them without the controller.
+- Only modules under `NavierFormal/External/` may import the external
+  package, `Challenge.lean` never does, and every imported declaration needs a
+  statement-faithfulness row and an axiom report (`docs/external-openai-audit.md`,
+  `docs/verification-status.md`). Imported forced-blowup facts are not unforced
+  theorems.
 - Parallel workers own disjoint files. Check a single file with
   `lake env lean NavierFormal/Foo.lean`; run `lake build` only when the
   controller integrates. Never run concurrent `lake build`s.

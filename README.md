@@ -15,7 +15,10 @@ Palomar template: `Challenge.lean` states the advertised results with
 Mathlib-only imports, `Solution.lean` proves them, `comparator.json` names the
 compared declarations, `formalization.yaml` records metadata.
 
-Build with `lake build` (Lean `v4.33.1`, Mathlib `v4.33.1`). Status and axiom
+Build with `lake build` (Lean `v4.34.0-rc2`, Mathlib `v4.34.0-rc2`, commit
+`85e3a25e`; pinned to match the Solution-only external dependency
+`openai/NavierStokesAndEuler@8937a8f4`, Apache-2.0, which only modules under
+`NavierFormal/External/` may import; see `docs/external-openai-audit.md`). Status and axiom
 reports are in `docs/verification-status.md`; literature inputs in
 `docs/literature-assumptions.yaml`; the paper-to-Lean correspondence in
 `docs/paper-lean-specification.md`. The repository is private.

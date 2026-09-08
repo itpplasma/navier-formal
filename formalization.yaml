@@ -63,7 +63,13 @@ sources:
     type: "article"
     relationship: "background"
 
-related_formalizations: []
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Millenium/NavierStokes.lean"
+    relationship: "builds-on"
+    note: "Reference statements of Fefferman's alternatives; alternative (A) is inlined in NavierFormal/ClayReference.lean with the Apache-2.0 header."
+  - id: "https://github.com/openai/NavierStokesAndEuler"
+    relationship: "builds-on"
+    note: "Solution-only pinned dependency at commit 8937a8f4 (forced alternatives C/D, Apache-2.0); only NavierFormal/External/ imports it."
 
 status:
   scope: >-
@@ -86,7 +92,7 @@ status:
 automation:
   methods:
     - method: "agent"
-      models: ["claude-fable-5-1", "claude-opus-5"]
+      models: ["claude-fable-5-1", "claude-opus-5", "claude-sonnet-5"]
       framework: "Claude Code"
       tool_setup: "Claude Code workflows with parallel subagents; Lean checked locally with lake; controller integrates and audits"
       cost:

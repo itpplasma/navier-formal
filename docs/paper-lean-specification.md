@@ -88,3 +88,23 @@ encoding choice; every deviation is named.
 - A2: no definition changes. `D3density`, `P3density` remain written through `gradTranspose`; the `∇|u|` form appears only as the conclusion of theorems (`D3density_eq_gradient_norm`, `P3density_eq_gradient_norm`, `divergence_rEps_smul_eq_gradient_norm`) under explicit `DifferentiableAt` and `u x ≠ 0` hypotheses. The only new definitions are `dilateL3Fun` and `dilateL3`.
 - A3, A5, A6, A7: untouched; neither file mentions `ν`, the solution class, the Clay target, or `hyp:critical`.
 - A4: no Littlewood–Paley object.
+
+## Formal core lanes of 2026-09-08
+
+The fidelity audit of the modules landed on 2026-09-08 (`SchwartzDecay`,
+`ClayReference`, `ScalingPDE`, `EnergyIdentity`, `EnstrophyIdentity`,
+`PressureLimit`, `ClassBridges`, `Blowup`, `Literature/LocalTheory`,
+`Literature/Endpoint`, `Conditional`, `External/OpenAIUniqueness`) is
+recorded declaration by declaration in the module docstrings, which name the
+manuscript label and every deviation; the integration summary with the
+Phase I/II status of each row is in `verification-status.md` (update
+2026-09-08). The two coarse literature axioms are the only non-standard
+axioms in the repository and are confined to the library
+`NavierFormalConditional`. The controller re-checked: (1) `clayAlternativeA_iff`
+is a genuine two-sided equivalence with the Formal Conjectures shape of (A);
+(2) `localTheory` folds `lem:global-smooth` and a finite energy bound into the
+axiom (manuscript-owned content, to be split out); (3) `endpointContinuation`
+is the manuscript's `thm:continuation`, not ESS Theorem 1.3 verbatim;
+(4) `External.classical_uniqueness_of_compact_support*` need closed-slab
+smoothness and compact support of the reference, which `IsClassicalSolution`
+does not provide.

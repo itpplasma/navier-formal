@@ -67,6 +67,65 @@ are in `literature-assumptions.yaml`.
 | `hyp:critical` | `NavierFormal.CriticalBound`, `NavierFormal.CriticalHypothesis` (statement only) | paper only (hypothesis formalized; not asserted) |
 | `eq:nu-normalization` (`v_s + (v·∇)v + ∇q = Δv`, `‖v(s)‖₃ = ν⁻¹‖u(s/ν)‖₃`) | `NavierFormal.IsClassicalSolution.nuNormalization`, `NavierFormal.eLpNorm_three_nuNormalization` (lemmas `NavierFormal.convection_const_smul`, `divergence_const_smul`, `gradient_const_smul`, `contDiffOn_timeScale`, `continuousOn_timeScale`, `timeDeriv_eq_deriv`) | Phase II complete (no literature input); the clause `S_* = νT_*` is only the interval endpoint `νT`, no maximal time is defined |
 
+
+**Update 2026-09-08 (route-invariant formal core, PLAN Section 8).** The
+toolchain moved to Lean `v4.34.0-rc2` / Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`
+(the pin of the Solution-only external dependency
+`openai/NavierStokesAndEuler@8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538`,
+Apache-2.0); the pre-existing development built unchanged. Eleven parallel
+lanes owned disjoint new files; nine landed, one (`EnstrophyIdentity`) was
+stopped by the owner and integrated after removing its unfinished final
+theorem, one (`HessianLaplacian`, the `‖D²u‖₂ = ‖Δu‖₂` identity) was stopped
+before it compiled and is NOT in the repository. Integration: one clean
+`lake build` (3263 jobs, zero errors; only warnings are the nine intended
+`sorry`s in `Challenge.lean`, deprecations, unused variables), then
+`lake env lean research/check_<lane>.lean` for the ten lanes: 130
+declarations checked, 126 report exactly `[propext, Classical.choice, Quot.sound]`
+(or a subset), and the four in `check_conditional.lean` report additionally
+exactly `NavierFormal.Literature.localTheory` and/or
+`NavierFormal.Literature.endpointContinuation`, as designed. The root
+`NavierFormal` stays axiom-free: the two literature axioms and
+`NavierFormal/Conditional.lean` form the separate library
+`NavierFormalConditional`, imported by neither `Challenge.lean` nor
+`Solution.lean`. The advertised Palomar surface is unchanged (nine CP1
+statements).
+
+| Manuscript label | Lean declaration | Status |
+| --- | --- | --- |
+| `thm:conditional` (`hyp:critical ⇒ def:target`) | `NavierFormal.conditional_clay_A : CriticalHypothesis → ClayAlternativeA_all`, `conditional_clay_A_of_bound` (`Conditional.lean`) | **Phase I (coarse)**: proved from exactly two axioms, `Literature.localTheory` and `Literature.endpointContinuation`. Both axioms package manuscript-owned bridges together with the cited theorem (see the next two rows), so this is not yet a clean Phase I over pure literature inputs; splitting them is FC1/FC2 residual work. |
+| `prop:localtheory` (Tao 2013 Thm 5.4, Cor. 4.3, 5.8 via `lem:nu-scaling`) | axiom `NavierFormal.Literature.localTheory` (`Literature/LocalTheory.lean`); lemmas `Literature.isClassicalSolution_of_lt`, `Literature.clayAlternativeA_of_Tstar_top` | Phase I axiom with source record. Deviations recorded in the module docstring: maximality of `T_*` not asserted; blow-up alternative (v) weakened to `H¹` unboundedness; the `T_* = ∞` clause states `lem:global-smooth` and a finite energy bound (`prop:energy` consequence) directly instead of deriving them; uniqueness (ii) weakened to `T ≤ T_*` without the pressure-constant clause. `T_*` is `ℝ≥0∞`. |
+| `thm:continuation` / `thm:ess` (ESS 2003 Thm 1.3 + `lem:leray-hopf`, `lem:l3-to-l5`, `lem:serrin-enstrophy`) | axiom `NavierFormal.Literature.endpointContinuation` (`Literature/Endpoint.lean`) | Phase I axiom, explicitly COARSER than ESS Theorem 1.3: it states the manuscript's `thm:continuation` conclusion (finite `T_*` forces unbounded `L³`) for a branch with the regularity package and the `H¹` blow-up alternative. The Leray–Hopf class and the three bridges are not formalized. Phase II of this row is positive-route only (PLAN 8.2, FC2). |
+| `def:target` alignment with the Formal Conjectures reference (A) | `NavierFormal.ClayReference.*` (`ClayReference.lean`, Apache-2.0 header from Formal Conjectures/OpenAI): `divergence_eq`, `contDiffOn_prod_swap_iff`, `navierStokesExistenceAndSmoothness_iff`, `energy_bound_iff`, `navierStokesExistenceAndSmoothnessRn_iff`, `clayAlternativeA_iff : ClayAlternativeA ν u₀ ↔ ∃ v p, NavierStokesExistenceAndSmoothnessRn ν u₀ (f := 0) v p`, `clayAlternativeA_all_implies_reference` | Phase II complete (no literature input). The reference definitions are inlined specialised to `ℝ³`; the energy clause equivalence is a full iff using continuity; the last theorem carries the (unused, as in the reference) decay hypothesis. |
+| `thm:conditional` Step 0 / Fefferman condition (4) (Schwartz datum ⇔ decay of all derivatives) | `NavierFormal.SchwartzMap.decay_fefferman`, `SchwartzMap.ofDecay`, `SchwartzDivFree.decay_fefferman`, `SchwartzDivFree.ofFefferman` (`SchwartzDecay.lean`) | Phase II complete (no literature input); real `K` handled through `⌈K⌉₊` as in the manuscript. |
+| `prop:scaling`(i) (PDE half: `(u_λ,p_λ)` is a classical solution on `[0,T/λ²)`) | `NavierFormal.IsClassicalSolution.dilate` with chain rules `convection_dilate`, `divergence_dilate_full`, `gradient_const_smul_dilate`, `laplacian_const_smul_dilate`, `contDiffOn_spaceTimeDilate`, `continuousOn_spaceTimeDilate`, `dilateSpaceTime_uncurry` (`ScalingPDE.lean`) | Phase II complete (no literature input); `λ > 0`; `SchwartzDivFree` closure under dilation not proved. |
+| `prop:energy` (`eq:energy-derivative`, `eq:energy`) | `NavierFormal.EnergyIdentity.EnergyHypotheses`, `energy_hasDerivAt`, `energy_identity`, `energy_nonincreasing`, `hasL2DerivWithinAt_mono` (`EnergyIdentity.lean`, over `Energy.lean`) | Phase II complete for a classical solution under the explicit bundle `EnergyHypotheses` (`L²` of `u`, `∂ₜu`, the `L²`-derivative predicate, the IBP integrability, interval integrability of the dissipation), on `0 < s ≤ t < T`. The bridge from `RegularityPackage`/`BoundedDerivatives` to the bundle is partly in `ClassBridges.lean` (all spatial `L¹`/`L²` facts at fixed `t`), but the `L²`-time-derivative predicate is not yet derived. |
+| `prop:enstrophy` (`eq:enstrophy-identity`, `lem:plancherel`(i),(iii)) | `NavierFormal.frobeniusInner`, `integral_frobenius_inner_eq_neg_integral_inner_laplacian`, `divergence_laplacian_eq_zero`, `integral_gradient_inner_laplacian_eq_zero`, `enstrophy_identity_pointwise_time`, with commutation lemmas `fderiv_dir_comm`, `divergence_fderiv_dir_eq_fderiv_divergence`, `fderiv_gradient_dir_eq_gradient_fderiv_dir` (`EnstrophyIdentity.lean`) | Phase II complete for the identity, under explicit integrability hypotheses and an explicit hypothesis for `Y' = 2∫∇u:∇u_t`. The cubic inequality `eq:enstrophy` is NOT in Lean (the lane's inequality theorem was removed unfinished; the interpolation `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and `‖D²u‖₂ = ‖Δu‖₂` remain open). |
+| `prop:pressure` (`ε ↓ 0` limits, majorants) | `Pressure.lean` already had `tendsto_D3densityEps`, `tendsto_P3densityEps`, `tendsto_HEpsIntegral`, `tendsto_D3Eps`, `tendsto_P3Eps` (the earlier "still not proved" remarks above are superseded); `PressureLimit.lean` adds `norm_gradTranspose_le_opNorm`, `abs_P3densityEps_le_opNorm` and named aliases | Phase II complete (supporting lemmas); the integral-level `eq:eps-identity` and the testing of the equation remain paper only. |
+| `premise:local` package `R` (boundedness half), Lipschitz and integrability bridges | `NavierFormal.BoundedDerivatives`, `lipschitzWith_of_bounded_fderiv`, `IsClassicalSolution.lipschitzWith_velocity`, `memLp_two_*`, `integrable_*` (33 declarations, `ClassBridges.lean`) | Phase II complete (no literature input); statement-surface addition `BoundedDerivatives` records the pointwise-boundedness clause of `prop:localtheory`(iii). Closes the CP03b "globally Lipschitz" gap under `BoundedDerivatives`. |
+| UE4 statement surface (PLAN FC7) | `NavierFormal.SpeedUnboundedAt`, `L3UnboundedAt`, `EnstrophyUnboundedAt`, `UniformFiniteEnergyOn`, `IsGlobalSmoothSolution`, `clayAlternativeA_iff`, `UnforcedCounterexample`, `UnforcedCounterexampleSome/All`, `UnforcedCounterexample.not_clayAlternativeA_all`, `not_clayAlternativeA_all_of_some`, `IsGlobalSmoothSolution.restrict`, `SchwartzDivFree.smul`, `UnforcedCounterexample.nuNormalization_energy` (`Blowup.lean`) | Definitions plus elementary theorems, Phase II (no literature input). No counterexample is asserted. Full viscosity rescaling of `UnforcedCounterexample` is not proved (needs the global-solution rescaling back from `ν = 1`). |
+| whole-space uniqueness against a compactly supported reference (PLAN FC6, [OA] Lemma 10.5) | `NavierFormal.External.classical_uniqueness_of_compact_support` (`ν = 1`), `classical_uniqueness_of_compact_support_nu`, dictionary lemmas `spatialDivergence_toSpacetime`, `temporalDerivative_toSpacetime`, `spatialLaplacian_toSpacetime`, `navierStokesResidual_toSpacetime_eq_zero`, `uniformFiniteEnergy_toSpacetime_of_bound` (`External/OpenAIUniqueness.lean`, imports `NavierStokes.R3.WholeSpaceUniqueness`) | Phase II complete through the external dependency: the adapters and the imported theorems `NavierStokesR3.WholeSpaceUniqueness.classical_uniqueness_on_Icc`, `candidate_unique_on_Icc`, `candidate_global_agrees_before_one`, `NavierStokesR3.RieszTestOperators.smooth_eLpNorm_six_le`, `NavierStokesR3.PressureRecovery.pressure_gradient_recovery` all report `[propext, Classical.choice, Quot.sound]` locally. Explicit hypotheses: closed-slab smoothness (our class gives only open-slab smoothness plus continuity at `t = 0`), compact support of the reference at every time. Not applicable to a Schwartz-data flow (`docs/external-openai-audit.md` §3.5). |
+
+## External axiom report: `openai/NavierStokesAndEuler@8937a8f4` (2026-09-08)
+
+Local replication on a 32-core machine, clone at
+`/home/ert/proj/openai-NavierStokesAndEuler` (outside all project repos),
+toolchain `leanprover/lean4:v4.34.0-rc2`, `lake exe cache get` then
+`lake build NavierStokes` (580 project modules, about 20 minutes wall clock,
+zero errors). The `#print axioms` lines at the end of
+`NavierStokes/ComparatorSolution.lean` printed
+
+```
+'NavierStokes.Comparator.navier_stokes_breakdown_R3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NavierStokes.Comparator.navier_stokes_breakdown_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+This replicates the self-reported axiom claim for the two advertised
+Navier–Stokes theorems with Lean's kernel on this machine. It is NOT a
+Comparator/NanoDa replay, NOT a statement-faithfulness certification beyond
+`docs/external-openai-audit.md` §1, and NOT a mathematical review of the
+paper. The `Euler` library build was started separately; its outcome is not
+recorded here unless stated below.
+
 ## Supporting lemmas
 
 Supporting lemmas formalize single sentences inside a manuscript proof, not a

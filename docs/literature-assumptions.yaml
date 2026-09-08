@@ -3,7 +3,7 @@ repository: itpplasma/navier-formal
 purpose: >-
   Keep cited mathematics usable by the formalization without confusing an
   external input with a self-contained Lean proof.
-root_imports_assumptions: false
+root_imports_assumptions: false  # root NavierFormal; axioms live only in the separate lib NavierFormalConditional
 project_axioms_in_default_root: false
 status_vocabulary:
   FORMALIZED: proved by Lean with only the standard foundation axioms.
@@ -16,19 +16,27 @@ formalization_program:
       Every manuscript-owned step is proved in Lean down to the literature it
       cites; remaining axioms are cited published theorems with verified
       direct-source records.
-    status: authorized 2026-09-05; not started in Lean.
+    status: >-
+      started 2026-09-08: thm:conditional proved over two coarse axioms
+      (NavierFormal.Literature.localTheory, .endpointContinuation); splitting
+      manuscript-owned bridges out of them is the FC1/FC2 residual.
   phase_ii:
     goal: Every Phase I axiom is proved from Mathlib.
     disposal_classes:
       M: available in Mathlib in some form; prove directly.
       F: standard mathematics absent from Mathlib; formalize it.
-    status: authorized 2026-09-05; not started.
+    status: authorized 2026-09-05; supporting Phase II lemmas landed 2026-09-08 (see verification-status.md); no Phase I axiom discharged yet.
 literature_inputs:
   - id: tao-2013-theorem-5-4
     statement: local classical theory for Schwartz divergence-free data on R3
-    source: Tao, APDE 6 (2013), Theorem 5.4
-    lean: null
-    status: OPEN
+    source: Tao, APDE 6 (2013), Theorem 5.4 with Corollaries 4.3 and 5.8, via manuscript prop:localtheory and lem:nu-scaling
+    lean: NavierFormal.Literature.localTheory (NavierFormal/Literature/LocalTheory.lean)
+    status: LITERATURE-INPUT (coarse; packages manuscript-owned bridges, see module docstring)
+  - id: ess-2003-theorem-1-3
+    statement: L^infty_t L^3_x Leray-Hopf solution is in L^5, hence smooth and unique (endpoint continuation)
+    source: Escauriaza, Seregin, Sverak, Russian Math. Surveys 58 (2003), Theorem 1.3; manuscript thm:ess, thm:continuation
+    lean: NavierFormal.Literature.endpointContinuation (NavierFormal/Literature/Endpoint.lean)
+    status: LITERATURE-INPUT (coarse; states thm:continuation, i.e. Theorem 1.3 plus lem:leray-hopf, lem:l3-to-l5, lem:serrin-enstrophy)
   - id: gkp-2013-theorem-4
     statement: maximal L3 solution with bounded L3 norm is global (ESS endpoint)
     source: Gallagher–Koch–Planchon, arXiv:1012.0145, Theorem 4
@@ -38,3 +46,17 @@ open_project_inputs:
   - id: hyp-critical
     statement: finite-horizon a priori L3 bound for every Clay datum
     status: OPEN (explicit hypothesis of the conditional theorem; not a literature input)
+external_lean_dependencies:
+  - id: openai-navierstokesandeuler
+    repository: https://github.com/openai/NavierStokesAndEuler
+    commit: 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538
+    license: Apache-2.0
+    toolchain: leanprover/lean4:v4.34.0-rc2
+    mathlib: 85e3a25e006c35636f0e53b0e9296caca2685bc0
+    role: Solution-only pinned dependency; imported only from NavierFormal/External/
+    imported_modules: [NavierStokes.R3.WholeSpaceUniqueness, NavierStokes.R3.SmoothSobolevL6, NavierStokes.R3.PressureRecovery]
+    advertised_main_results: [NavierStokes.Comparator.navier_stokes_breakdown_R3, NavierStokes.Comparator.navier_stokes_breakdown_periodic]
+    self_reported_axioms: [propext, Classical.choice, Quot.sound]
+    local_replication: see docs/verification-status.md (2026-09-08 external axiom report)
+    statement_audit: docs/external-openai-audit.md
+    status: FORMALIZED-EXTERNAL (forced alternatives C/D; not an unforced input)

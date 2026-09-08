@@ -1,14 +1,30 @@
 name = "NavierFormal"
 version = "0.1.0"
-defaultTargets = ["NavierFormal", "Challenge", "Solution"]
+defaultTargets = ["NavierFormal", "NavierFormalConditional", "Challenge", "Solution"]
 
 [[require]]
 name = "mathlib"
-git = "https://github.com/leanprover-community/mathlib4"
-rev = "v4.33.1"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.34.0-rc2"
+
+# Solution-only dependency (never imported by Challenge.lean): OpenAI's
+# Apache-2.0 Lean certificate for forced Navier–Stokes breakdown, pinned to
+# the inspected commit. Only modules under NavierFormal/External/ may import it.
+[[require]]
+name = "NavierStokesAndEuler"
+git = "https://github.com/openai/NavierStokesAndEuler.git"
+rev = "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"
 
 [[lean_lib]]
 name = "NavierFormal"
+
+# Phase I conditional theorem over the two literature axioms; kept out of the
+# axiom-free root `NavierFormal` so that `#print axioms` on the root stays
+# standard. Never imported by Challenge.lean or Solution.lean.
+[[lean_lib]]
+name = "NavierFormalConditional"
+roots = ["NavierFormal.Conditional"]
 
 [[lean_lib]]
 name = "Challenge"

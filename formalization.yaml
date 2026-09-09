@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# formalization.yaml v0.4. Private draft; every field is re-checked at Palomar preflight.
+# formalization.yaml v0.4. Preparation draft; every field is re-checked at Palomar preflight.
 version: "v0.4"
 
 project:
   name: "Navier–Stokes critical-norm reduction on R3 (checkpoint CP1)"
   description: >-
-    Lean 4 / Mathlib formalization of the checkpoint block of a private
-    research programme on the three-dimensional incompressible Navier–Stokes
-    Cauchy problem: the energy identity, critical scaling, cubic enstrophy
-    inequality, exact signed critical pressure balance, low-frequency pressure
-    bound, cubic gradient-quotient functional, and the conditional theorem that
-    a finite-horizon a priori L3 bound implies Clay alternative A. The
+    Lean 4 / Mathlib formalization of the checkpoint block of a research
+    programme on the three-dimensional incompressible Navier–Stokes Cauchy
+    problem: the energy identity, critical scaling, cubic enstrophy inequality,
+    exact signed critical pressure balance, low-frequency pressure bound, cubic
+    gradient-quotient functional, and the conditional theorem that a
+    finite-horizon a priori L3 bound implies Clay alternative A. The
     arbitrary-data critical bound itself is an explicit hypothesis. No solution
     of the Millennium problem is claimed.
   authors:
@@ -24,25 +24,30 @@ classification:
   msc2020: ["35Q30", "76D05", "76D03", "35B65"]
 
 sources:
-  - title: "A conditional critical-norm route for the three-dimensional Navier–Stokes Cauchy problem (private manuscript, itpplasma/navier-paper)"
+  - title: "Internal CP1 proof development for the Navier–Stokes critical-norm route"
     authors:
       - "Christopher Albert"
-    type: "manuscript"
-    relationship: "formalizes"
-    note: "Unpublished manuscript (private repository itpplasma/navier-paper); the formalization follows its statements and proofs."
+    type: "other"
+    relationship: "other"
+    note: >-
+      The private navier-paper manuscript, the research dossier, and this Lean
+      development are records of the same ongoing internal research project.
+      The manuscript is not a separately published or presented prior source
+      being formalized. Its dated chronology is retained for provenance and
+      statement review. No priority claim is made.
     license: "unknown"
   - title: "Existence and smoothness of the Navier–Stokes equation"
     authors:
       - "Charles L. Fefferman"
     id: "https://www.claymath.org/library/monographs/MPPc.pdf"
-    type: "book chapter"
+    type: "book"
     relationship: "background"
     note: "Official Clay problem statement; alternative A is the target of the conditional theorem."
   - title: "Localisation and compactness properties of the Navier–Stokes global regularity problem"
     authors:
       - "Terence Tao"
     id: "10.2140/apde.2013.6.25"
-    type: "article"
+    type: "paper"
     relationship: "background"
     note: "Theorem 5.4 supplies the local classical theory; a Phase I literature axiom until proved from Mathlib."
   - title: "A profile decomposition approach to the L∞_t(L³_x) Navier–Stokes regularity criterion"
@@ -51,7 +56,7 @@ sources:
       - "Gabriel S. Koch"
       - "Fabrice Planchon"
     id: "arXiv:1012.0145"
-    type: "article"
+    type: "paper"
     relationship: "background"
     note: "Theorem 4 records the Escauriaza–Seregin–Šverák endpoint in maximal L³ form; a Phase I literature axiom until proved from Mathlib."
   - title: "L_{3,∞}-solutions of the Navier–Stokes equations and backward uniqueness"
@@ -60,7 +65,7 @@ sources:
       - "Gregory Seregin"
       - "Vladimír Šverák"
     id: "10.1070/RM2003v058n02ABEH000609"
-    type: "article"
+    type: "paper"
     relationship: "background"
 
 related_formalizations:

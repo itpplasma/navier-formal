@@ -9,8 +9,10 @@ priori `L³` bound implies Clay alternative A. The arbitrary-data critical bound
 is an explicit hypothesis. No solution of the Millennium problem is claimed
 here or in the companion repositories.
 
-Companion repositories: `itpplasma/navier` (research dossier, live status in
-`PLAN.md`) and `itpplasma/navier-paper` (private internal manuscript record).
+Companion repository: [itpplasma/navier](https://github.com/itpplasma/navier)
+contains the research dossier, live `PLAN.md`, and public manuscript sources
+in [paper/](https://github.com/itpplasma/navier/tree/main/paper). The former
+`navier-paper` repository was archived on 2026-09-09.
 The manuscript, research dossier, and Lean development are records of the same
 ongoing project, not separate prior publications or presentations. Their dated
 chronology is retained for provenance and review. Layout follows the Palomar

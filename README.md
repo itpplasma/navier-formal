@@ -1,27 +1,30 @@
 # navier-formal
 
 Lean 4 formalization of checkpoint CP1 of a research programme on the
-three-dimensional incompressible Navier–Stokes Cauchy problem. CP1 is the
-manuscript's conditional route: energy identity, critical scaling, cubic
-enstrophy inequality, signed critical pressure balance, low-frequency pressure
-bound, cubic gradient-quotient functional, and the theorem that a finite-horizon
-a priori `L³` bound implies Clay alternative A. The arbitrary-data critical
-bound is an explicit hypothesis. No solution of the Millennium problem is
-claimed here or in the companion repositories.
+three-dimensional incompressible Navier–Stokes Cauchy problem. CP1 is an
+internal manuscript route: energy identity, critical scaling, cubic enstrophy
+inequality, signed critical pressure balance, low-frequency pressure bound,
+cubic gradient-quotient functional, and the theorem that a finite-horizon a
+priori `L³` bound implies Clay alternative A. The arbitrary-data critical bound
+is an explicit hypothesis. No solution of the Millennium problem is claimed
+here or in the companion repositories.
 
 Companion repositories: `itpplasma/navier` (research dossier, live status in
-`PLAN.md`) and `itpplasma/navier-paper` (manuscript). Layout follows the
-Palomar template: `Challenge.lean` states the advertised results with
-Mathlib-only imports, `Solution.lean` proves them, `comparator.json` names the
-compared declarations, `formalization.yaml` records metadata.
+`PLAN.md`) and `itpplasma/navier-paper` (private internal manuscript record).
+The manuscript, research dossier, and Lean development are records of the same
+ongoing project, not separate prior publications or presentations. Their dated
+chronology is retained for provenance and review. Layout follows the Palomar
+template: `Challenge.lean` states the advertised results with Mathlib-only
+imports, `Solution.lean` proves them, `comparator.json` names the compared
+declarations, `formalization.yaml` records metadata.
 
 Build with `lake build` (Lean `v4.34.0-rc2`, Mathlib `v4.34.0-rc2`, commit
 `85e3a25e`; pinned to match the Solution-only external dependency
 `openai/NavierStokesAndEuler@8937a8f4`, Apache-2.0, which only modules under
 `NavierFormal/External/` may import; see `docs/external-openai-audit.md`). Status and axiom
 reports are in `docs/verification-status.md`; literature inputs in
-`docs/literature-assumptions.yaml`; the paper-to-Lean correspondence in
-`docs/paper-lean-specification.md`. The repository was made public on
+`docs/literature-assumptions.yaml`; the internal-proof-to-Lean correspondence
+in `docs/paper-lean-specification.md`. The repository was made public on
 2026-09-08 under Apache-2.0 as a documented record of the work before and
 after OpenAI's forced-blowup release of the same day.
 
@@ -35,8 +38,8 @@ conditional theorem `NavierFormal.conditional_clay_A_of_tao`
 named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
 `NavierFormal.Literature.endpointContinuation`, kept in the separate library
 `NavierFormalConditional`. The research context, status and allocation are in
-the companion repository `itpplasma/navier` (`PLAN.md`). The manuscript
-repository stays private for now.
+the companion repository `itpplasma/navier` (`PLAN.md`). The internal
+manuscript repository stays private for now.
 
 ## Blockers for anyone continuing this work
 

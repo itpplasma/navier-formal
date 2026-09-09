@@ -2,7 +2,10 @@
 
 This is the Lean 4 formalization of checkpoint CP1 of the private Navier–Stokes
 programme. The live status is `../navier/PLAN.md`; never keep a second status
-list here. The manuscript is `../navier-paper/main.tex`. Read
+list here. The internal manuscript record is `../navier-paper/main.tex`.
+The manuscript, research dossier, and Lean development are records of the same
+ongoing project; the manuscript is not a separately published or presented
+prior source. Preserve its dated chronology for provenance and review. Read
 `docs/verification-status.md` and `docs/literature-assumptions.yaml` before
 adding a theorem, axiom, or claim.
 

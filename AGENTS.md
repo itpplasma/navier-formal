@@ -1,8 +1,8 @@
 # Agent rules
 
-This is the Lean 4 formalization of checkpoint CP1 of the private Navier–Stokes
+This is the Lean 4 formalization of checkpoint CP1 of the public Navier–Stokes
 programme. The live status is `../navier/PLAN.md`; never keep a second status
-list here. The internal manuscript record is `../navier-paper/main.tex`.
+list here. The internal manuscript record is `../navier/paper/main.tex`.
 The manuscript, research dossier, and Lean development are records of the same
 ongoing project; the manuscript is not a separately published or presented
 prior source. Preserve its dated chronology for provenance and review. Read
@@ -57,5 +57,6 @@ generic namespace so that it can later move to a library.
 
 
 Publication note (2026-09-08): this repository and `itpplasma/navier` are
-public; `navier-paper` stays private. No submission, Palomar registration or
+public. Manuscripts moved to public `navier/paper/` on 2026-09-09;
+`navier-paper` is now a private historical archive. No submission, Palomar registration or
 outside contact is authorized by that change.

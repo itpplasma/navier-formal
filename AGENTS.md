@@ -70,3 +70,15 @@ operator-norm Jacobian Sobolev/interpolation consumer in
 the manuscript `H²`/compact-support hypotheses to the pointwise IBP package;
 operator/Frobenius norm identification and the critical `L³` producer are also
 open. Keep `../navier/PLAN.md` authoritative for companion research status.
+
+## Proof-source provenance and goal mode
+
+Read `docs/proof-source-provenance.md` before dispatching work. The live
+research source is `itpplasma/navier/PLAN.md`; the current manuscript record is
+`itpplasma/navier/paper/main.tex`. Unrestricted NS-R3 is explicitly not proved
+and no unforced counterexample is constructed.
+
+Goal mode here means formalize CP1 and the manuscript's proved/conditional
+checkpoint statements faithfully. It does not mean solve NS-R3. Keep the
+arbitrary-data critical `L³` producer explicit as research-open, and never use
+a forced result as an unforced producer.

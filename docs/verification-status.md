@@ -30,6 +30,12 @@ isometry of `L³` onto itself and the invariance `𝒬(u_λ) = 𝒬(u)` of
 `sec:quotient`). Every labelled
 manuscript result keeps the status in the table below; the fidelity audit of
 each definition is in `paper-lean-specification.md`.
+**Update 2026-09-12.** `NavierFormal/HessianLaplacian.lean` now contains the
+generic `C³` directional/finite-trace commutation and its Euclidean Laplacian
+specialization, with an independent constant-field oracle in
+`research/check_hessian_laplacian.lean`. The analytic estimate
+`‖D²u‖₂ ≲ ‖Δu‖₂` needed for the enstrophy interpolation remains open; this
+lane is not replayed because the pinned Mathlib checkout is absent.
 **Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
 placeholders for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity

@@ -43,6 +43,15 @@ named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
 the companion repository `itpplasma/navier` (`PLAN.md`). The internal
 manuscript repository stays private for now.
 
+## Proof map
+
+The current route is: CP1 statement surface in `Challenge.lean` → Mathlib-only
+solutions in `Solution.lean` → conditional literature bridge
+`NavierFormalConditional` → the paper's critical `L³` producer. The first two
+surfaces contain checked pieces; the PDE scaling, dominated-convergence,
+finite-horizon critical bound, and endpoint hypotheses remain open as recorded
+in `docs/verification-status.md` and the live plan in `../navier/PLAN.md`.
+
 ## Blockers for anyone continuing this work
 
 Formal, in order of value:

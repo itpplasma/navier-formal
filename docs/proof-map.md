@@ -31,5 +31,11 @@ adapter supplies all seven explicit integrability fields under pointwise
 `CompactSupportIBP/GradientInterpolation.lean` consumes the same package to
 prove the operator-norm Sobolev/interpolation step, with
 `research/gradient_interpolation_oracle.py` as an independent numerical check.
+The 2026-09-12 Sol repair corrected the Sobolev domain dimension from `9` to
+`3`; Astra review found no further source-level repair without the pinned
+cache. The paper bridge remains open because generic `H²` does not imply
+pointwise `C³`, compact support requires a cutoff/limit argument, and the
+Hessian/Frobenius-to-Laplacian norm and integral comparison is not yet
+composed.
 Neither file identifies a generic manuscript `H²` representative with a `C³`
 field or with the manuscript's Frobenius norm convention.

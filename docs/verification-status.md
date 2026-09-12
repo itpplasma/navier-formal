@@ -57,6 +57,11 @@ manuscript `prop:enstrophy`: the H²-to-C³/IBP bridge, operator/Frobenius norm
 identification, and critical `L³` producer remain open. The pinned Mathlib
 checkout is absent, so this new Lean draft has not received a trust-disabled
 toolchain replay.
+Sol/Astra review adds the exact boundary: the source theorem is sound under
+its explicit `CompactSupportC3Hypotheses`, but the manuscript's generic `H²`
+field still needs a pointwise-`C³` compact-support cutoff/limit bridge. The
+Hessian/Frobenius-to-Laplacian norm comparison and integral bookkeeping are
+also not composed. No further escalation is made on this seam.
 **Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
 placeholders for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity

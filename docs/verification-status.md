@@ -42,6 +42,11 @@ identity `∫‖D²u‖_F² = ∫‖Δu‖²` under an explicit
 independent Gaussian oracle. This is a bounded formal producer, not yet a
 paper-level closure: the compact-support/H²-to-IBP-data bridge and the
 interpolation theorem remain open, and the draft awaits pinned-toolchain replay.
+`NavierFormal/CompactSupportIBP/Adapter.lean` closes the elementary compact
+support side under pointwise `ContDiff ℝ 3`: it constructs all seven explicit
+integrability fields, and `research/compact_support_ibp_oracle.py` passes an
+independent bump-function check. The first unsupported paper bridge is now
+precisely the H²-to-pointwise-C³/IBP-data identification.
 **Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
 placeholders for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity

@@ -60,8 +60,11 @@ Formal, in order of value:
    square of the Hessian). `NavierFormal/HessianLaplacianL2.lean` now proves
    the exact integrated identity under an explicit whole-space
    integration-by-parts package, with an independent Gaussian oracle. The
-   remaining bridge is deriving that package from the manuscript's
-   compact-support/H² hypotheses; it unlocks the gradient interpolation
+   `NavierFormal/CompactSupportIBP/Adapter.lean` now derives all seven explicit
+   IBP integrability fields from compact support and pointwise `C³`; its
+   independent bump-function oracle passes. The remaining bridge is deriving
+   the required pointwise `C³`/IBP data from the manuscript's compact-support/
+   `H²` hypotheses; it unlocks the gradient interpolation
    `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and removes the explicit interpolation
    hypothesis from `serrin_enstrophy_bound` and `enstrophy_inequality`.
 2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`

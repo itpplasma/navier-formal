@@ -36,6 +36,12 @@ specialization, with an independent constant-field oracle in
 `research/check_hessian_laplacian.lean`. The analytic estimate
 `‖D²u‖₂ ≲ ‖Δu‖₂` needed for the enstrophy interpolation remains open; this
 lane is not replayed because the pinned Mathlib checkout is absent.
+The draft `NavierFormal/HessianLaplacianL2.lean` now adds the exact integrated
+identity `∫‖D²u‖_F² = ∫‖Δu‖²` under an explicit
+`HessianLaplacianIBPData` package, plus the square-root norm form and an
+independent Gaussian oracle. This is a bounded formal producer, not yet a
+paper-level closure: the compact-support/H²-to-IBP-data bridge and the
+interpolation theorem remain open, and the draft awaits pinned-toolchain replay.
 **Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
 placeholders for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity

@@ -57,11 +57,13 @@ in `docs/verification-status.md` and the live plan in `../navier/PLAN.md`.
 Formal, in order of value:
 
 1. `‖D²u‖₂ = ‖Δu‖₂` for compactly supported smooth `u` on `ℝ³` (Hilbert–Schmidt
-   square of the Hessian). Two integration-by-parts attempts failed to
-   compile; a Fourier/Plancherel route through Mathlib is untried. It unlocks
-   the gradient interpolation `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and removes the
-   explicit interpolation hypothesis from `serrin_enstrophy_bound` and
-   `enstrophy_inequality`.
+   square of the Hessian). `NavierFormal/HessianLaplacianL2.lean` now proves
+   the exact integrated identity under an explicit whole-space
+   integration-by-parts package, with an independent Gaussian oracle. The
+   remaining bridge is deriving that package from the manuscript's
+   compact-support/H² hypotheses; it unlocks the gradient interpolation
+   `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and removes the explicit interpolation
+   hypothesis from `serrin_enstrophy_bound` and `enstrophy_inequality`.
 2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`
    (uniform `L²` bound, identification of the abstract enstrophy with the
    gradient norm, `SerrinHypotheses`, interval-integral monotonicity) from

@@ -47,6 +47,16 @@ support side under pointwise `ContDiff ℝ 3`: it constructs all seven explicit
 integrability fields, and `research/compact_support_ibp_oracle.py` passes an
 independent bump-function check. The first unsupported paper bridge is now
 precisely the H²-to-pointwise-C³/IBP-data identification.
+**Update 2026-09-12 (gradient interpolation).**
+`NavierFormal/CompactSupportIBP/GradientInterpolation.lean` now proves the
+Jacobian-field Sobolev `L⁶` estimate and the resulting operator-norm `L³`
+gradient interpolation under `CompactSupportC3Hypotheses`. The independent
+`research/gradient_interpolation_oracle.py` passes. This is a bounded
+Phase-II-style consumer under explicit hypotheses, not closure of the
+manuscript `prop:enstrophy`: the H²-to-C³/IBP bridge, operator/Frobenius norm
+identification, and critical `L³` producer remain open. The pinned Mathlib
+checkout is absent, so this new Lean draft has not received a trust-disabled
+toolchain replay.
 **Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
 placeholders for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity

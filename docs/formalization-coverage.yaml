@@ -83,6 +83,14 @@ declarations:
   - name: NavierFormal.enstrophy_inequality
     manuscript_label: prop:enstrophy
     status: phase-ii-complete-under-explicit-hypotheses
+  # Bounded continuation under the explicit compact-support C³ package;
+  # source-level draft awaiting replay against the pinned Mathlib checkout.
+  - name: NavierFormal.eLpNorm_six_fderiv_le_of_compactSupportC3
+    manuscript_label: lem:GN
+    status: phase-ii-draft-under-explicit-hypotheses
+  - name: NavierFormal.gradient_interpolation_of_compactSupportC3
+    manuscript_label: lem:GN
+    status: phase-ii-draft-under-explicit-hypotheses
   - name: NavierFormal.UnforcedCounterexample.nuNormalization
     manuscript_label: none (PLAN UE4 statement surface)
     status: phase-ii-complete

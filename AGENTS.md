@@ -64,7 +64,9 @@ outside contact is authorized by that change.
 ## Current controller pointer
 
 The formal route contains the integrated Hessian/Laplacian identity under
-explicit IBP data and the compact-support pointwise-`C³` adapter. The first
-paper bridge remains the manuscript `H²`/compact-support hypotheses to that
-pointwise IBP package; the critical `L³` producer is still open. Keep
-`../navier/PLAN.md` authoritative for the companion research status.
+explicit IBP data, the compact-support pointwise-`C³` adapter, and the bounded
+operator-norm Jacobian Sobolev/interpolation consumer in
+`CompactSupportIBP/GradientInterpolation.lean`. The first paper bridge remains
+the manuscript `H²`/compact-support hypotheses to the pointwise IBP package;
+operator/Frobenius norm identification and the critical `L³` producer are also
+open. Keep `../navier/PLAN.md` authoritative for companion research status.

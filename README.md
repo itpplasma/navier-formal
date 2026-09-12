@@ -64,9 +64,11 @@ Formal, in order of value:
    IBP integrability fields from compact support and pointwise `C³`; its
    independent bump-function oracle passes. The remaining bridge is deriving
    the required pointwise `C³`/IBP data from the manuscript's compact-support/
-   `H²` hypotheses; it unlocks the gradient interpolation
-   `‖∇u‖₃ ≤ C‖∇u‖₂^{1/2}‖Δu‖₂^{1/2}` and removes the explicit interpolation
-   hypothesis from `serrin_enstrophy_bound` and `enstrophy_inequality`.
+   `H²` hypotheses. Under the explicit `CompactSupportC3Hypotheses` package,
+   `CompactSupportIBP/GradientInterpolation.lean` now proves the bounded
+   operator-norm Jacobian Sobolev/interpolation step and has an independent
+   bump-function oracle. The finite-dimensional operator/Frobenius norm
+   identification and the manuscript-level bridge remain open.
 2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`
    (uniform `L²` bound, identification of the abstract enstrophy with the
    gradient norm, `SerrinHypotheses`, interval-integral monotonicity) from

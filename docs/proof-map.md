@@ -10,7 +10,9 @@ Challenge.lean
        ├─ HessianLaplacianL2.lean: integrated Hessian/Laplacian identity
        │    [explicit IBP package]
        │    └─ CompactSupportIBP/Adapter.lean: compact-support + C³ adapter
-       │         [H²-to-pointwise-C³ bridge OPEN]
+       │         └─ CompactSupportIBP/GradientInterpolation.lean: Jacobian
+       │              Sobolev/interpolation consumer [explicit C³ package]
+       │              [H²-to-pointwise-C³ and operator/Frobenius bridges OPEN]
        ├─ Phase-I conditional bridge: NavierFormalConditional
        │    └─ Tao local theory + ESS input
        └─ paper terminal route
@@ -25,5 +27,9 @@ pinned toolchain replay is available; its independent Gaussian oracle is
 recorded in `research/check_hessian_laplacian_l2_oracle.py`. The compact-support
 adapter supplies all seven explicit integrability fields under pointwise
 `ContDiff ℝ 3` and `HasCompactSupport`; its independent bump oracle is
-`research/compact_support_ibp_oracle.py`. It does not identify a generic
-manuscript `H²` representative with a `C³` field.
+`research/compact_support_ibp_oracle.py`. The new
+`CompactSupportIBP/GradientInterpolation.lean` consumes the same package to
+prove the operator-norm Sobolev/interpolation step, with
+`research/gradient_interpolation_oracle.py` as an independent numerical check.
+Neither file identifies a generic manuscript `H²` representative with a `C³`
+field or with the manuscript's Frobenius norm convention.

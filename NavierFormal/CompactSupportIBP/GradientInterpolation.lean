@@ -35,8 +35,8 @@ def jacobianSobolevSixConst : ℝ≥0 :=
   SNormLESNormFDerivOfEqConst (Space →L[ℝ] Space) (volume : Measure Space) 2
 
 /-- Sobolev applied to the Jacobian of a compactly supported `C³` field.  This
-is the `m = 9` Sobolev step in manuscript `lem:GN`, before the finite-dimensional
-Frobenius norm bookkeeping. -/
+is the `ℝ⁹`-valued Sobolev step in manuscript `lem:GN`, before the
+finite-dimensional Frobenius norm bookkeeping. -/
 theorem eLpNorm_six_fderiv_le_of_compactSupportC3
     {u : Space → Space} (h : CompactSupportC3Hypotheses u) :
     eLpNorm (fderiv ℝ u) 6 volume ≤
@@ -45,7 +45,7 @@ theorem eLpNorm_six_fderiv_le_of_compactSupportC3
     h.smooth.fderiv_right (m := 1) (by norm_num)
   have hcompact : HasCompactSupport (fderiv ℝ u) :=
     HasCompactSupport.fderiv (𝕜 := ℝ) h.compact
-  have hdim : Module.finrank ℝ (Space →L[ℝ] Space) = 9 := by
+  have hdim : Module.finrank ℝ Space = 3 := by
     simp
   have hs := eLpNorm_le_eLpNorm_fderiv_of_eq
     (F := Space →L[ℝ] Space) (E := Space)

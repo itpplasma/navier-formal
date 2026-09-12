@@ -60,3 +60,11 @@ Publication note (2026-09-08): this repository and `itpplasma/navier` are
 public. Manuscripts moved to public `navier/paper/` on 2026-09-09;
 `navier-paper` is now a private historical archive. No submission, Palomar registration or
 outside contact is authorized by that change.
+
+## Current controller pointer
+
+The formal route contains the integrated Hessian/Laplacian identity under
+explicit IBP data and the compact-support pointwise-`C³` adapter. The first
+paper bridge remains the manuscript `H²`/compact-support hypotheses to that
+pointwise IBP package; the critical `L³` producer is still open. Keep
+`../navier/PLAN.md` authoritative for the companion research status.

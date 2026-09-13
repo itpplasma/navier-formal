@@ -16,6 +16,13 @@ example (x v : EuclideanSpace ℝ (Fin 2)) :
           (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ))) x v =
       secondDerivativeTrace (fun _ : Fin 2 => (0 : EuclideanSpace ℝ (Fin 2)))
         (fun y => fderiv ℝ (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ)) y v) x := by
+  have htrace : secondDerivativeTrace
+      (fun _ : Fin 2 => (0 : EuclideanSpace ℝ (Fin 2)))
+      (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ)) =
+      (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ)) := by
+    funext y
+    simp [secondDerivativeTrace]
+  rw [htrace]
   simp [secondDerivativeTrace]
 
 /-! The exported theorem separately specializes to the same non-dependent
@@ -25,7 +32,7 @@ example (x v : EuclideanSpace ℝ (Fin 2)) :
       Δ (fun y => fderiv ℝ (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ)) y v) x := by
   have hzero : ContDiff ℝ 3
       (fun _ : EuclideanSpace ℝ (Fin 2) => (0 : ℝ)) :=
-    contDiff_const.of_le (by norm_num)
+    contDiff_const
   exact laplacian_fderiv_dir_comm_euclidean hzero x v
 
 /-! The generic trace theorem is also exercised independently of the

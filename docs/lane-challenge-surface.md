@@ -14,7 +14,8 @@ and `verification-status.md`.
 advertised statements in the namespace `NavierFormal.CP1`, and
 `comparator.json` names those nine.
 
-`Challenge.lean` imports Mathlib only. It defines nothing: every advertised
+`Challenge.lean` imports Mathlib only. It defines no project-specific objects:
+every advertised
 statement is written out of Mathlib objects, with the two definitions of the
 development that the statements would otherwise need — `NavierFormal.dilate`
 and `NavierFormal.dilateSpaceTime` for the critical dilation,
@@ -160,9 +161,10 @@ report exactly the permitted set.
 'NavierFormal.CP1.integral_scalar_obstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-No `sorry` appears outside `Challenge.lean`, where there are exactly nine, one
-per advertised statement, and no `axiom` declaration exists anywhere in the
-repository.
+No `sorry` appears outside `Challenge.lean`, where six interface
+placeholders remain; `L4L3_supercritical` and
+`integral_scalar_obstruction` and `scalar_obstruction_exists` are now proved
+directly. No `axiom` declaration exists anywhere in the repository.
 
 ## How type identity was verified
 
@@ -249,7 +251,7 @@ are correct.
 ## Build status
 
 `lake build` completes with zero errors: `Build completed successfully (3102
-jobs)`. The only warnings are the nine intended
+jobs)`. The only warnings are the eight remaining intended
 `declaration uses 'sorry'` in `Challenge.lean`. `Solution.lean` compiles with
 no warning at all. Toolchain `leanprover/lean4:v4.33.1` and the pinned Mathlib
 `v4.33.1` are untouched, as are `lakefile.toml`, `lake-manifest.json` and

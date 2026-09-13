@@ -24,6 +24,40 @@ noncomputable section
 
 namespace NavierFormal
 
+/-- Continuity of the operator norm in the bounded-convergence topology, used
+to turn the compact-support `C³` package into the explicit `L¹` fields of
+manuscript `prop:enstrophy`, `lem:plancherel`(ii). -/
+private theorem continuous_clm_opNorm :
+    Continuous (fun T : Space →L[ℝ] Space →L[ℝ] Space => ‖T‖) := by
+  let p : Seminorm ℝ (Space →L[ℝ] Space →L[ℝ] Space) :=
+    ContinuousLinearMap.seminorm
+  have hp : Continuous (⇑p) := by
+    refine p.continuous (r := 1) ?_
+    refine ContinuousLinearMap.hasBasis_nhds_zero.mem_iff.2 ?_
+    refine ⟨(Metric.ball (0 : Space) 1,
+      Metric.ball (0 : Space →L[ℝ] Space) (1 / 4 : ℝ)), ?_, ?_⟩
+    · exact ⟨NormedSpace.isVonNBounded_ball ℝ Space 1,
+        Metric.ball_mem_nhds _ (by norm_num)⟩
+    · intro f hf
+      rw [p.mem_ball_zero]
+      change ‖f‖ < 1
+      have hf' : ‖f‖ ≤ (1 / 2 : ℝ) :=
+        ContinuousLinearMap.opNorm_le_of_shell (f := f) one_pos (by norm_num)
+          (c := (2 : ℝ)) (by norm_num) (by
+          intro x hxlow hxupper
+          have hxball : x ∈ Metric.ball (0 : Space) 1 := by
+            simpa [Metric.mem_ball, dist_eq_norm] using hxupper
+          have hxf := hf x hxball
+          have hxf' : ‖f x‖ < (1 / 4 : ℝ) := by
+            simpa [Metric.mem_ball, dist_eq_norm] using hxf
+          have hxlower : (1 / 2 : ℝ) ≤ ‖x‖ := by
+            simpa using hxlow
+          nlinarith)
+      linarith
+  exact hp.congr (fun T => rfl)
+  -- The bounded-convergence neighbourhoods contain a smaller operator-norm
+  -- ball, obtained by testing on the unit ball.
+
 /-- Compact-support smoothness at the exact order required by the integrated
 Hessian--Laplacian identity of manuscript `prop:enstrophy`,
 `lem:plancherel`(ii).  This is a pointwise `C³` hypothesis, not a claim that a
@@ -54,13 +88,14 @@ theorem CompactSupportC3Hypotheses.toHessianLaplacianIBPData
     have huf : ContDiff ℝ 2 (fderiv ℝ u) :=
       hu.fderiv_right (m := 2) (by norm_num)
     have hcomp := (ContinuousLinearMap.apply ℝ Space (e j)).contDiff.comp huf
-    simpa [firstDirectionalDerivative, Function.comp_def] using hcomp
+    change ContDiff ℝ 2 (fun x => (fderiv ℝ u x) (e j))
+    exact hcomp
 
   have hdir_support : ∀ j : Fin 3,
       HasCompactSupport (firstDirectionalDerivative u j) := by
     intro j
-    simpa [firstDirectionalDerivative] using
-      (HasCompactSupport.fderiv_apply (𝕜 := ℝ) h.compact (e j))
+    change HasCompactSupport (fun x => (fderiv ℝ u x) (e j))
+    exact HasCompactSupport.fderiv_apply (𝕜 := ℝ) h.compact (e j)
 
   have hdir_jac_support : ∀ j : Fin 3,
       HasCompactSupport (fderiv ℝ (firstDirectionalDerivative u j)) := by
@@ -70,7 +105,8 @@ theorem CompactSupportC3Hypotheses.toHessianLaplacianIBPData
   have hdir_second_cont : ∀ j : Fin 3,
       Continuous (fderiv ℝ (fderiv ℝ (firstDirectionalDerivative u j))) := by
     intro j
-    exact ((hdir_cd j).fderiv_right (m := 1) (by norm_num)).continuous_fderiv one_ne_zero
+    exact ((hdir_cd j).fderiv_right (m := 1) (by norm_num)).continuous_fderiv
+      (by norm_num)
 
   have hbase_second_cd : ContDiff ℝ 1 (fderiv ℝ (fderiv ℝ u)) :=
     (hu.fderiv_right (m := 2) (by norm_num)).fderiv_right (m := 1) (by norm_num)
@@ -128,7 +164,7 @@ theorem CompactSupportC3Hypotheses.toHessianLaplacianIBPData
         ‖firstDirectionalDerivative u j x‖ *
           ‖fderiv ℝ (firstDirectionalDerivative u j) x‖) :=
       (hdir_cd j).continuous.norm.mul
-        ((hdir_cd j).continuous_fderiv one_ne_zero).norm
+        ((hdir_cd j).continuous_fderiv (by norm_num)).norm
     exact hc.integrable_of_hasCompactSupport ((hdir_support j).norm.mul_right)
   · have hc : Continuous (enstrophyDensity (firstDirectionalDerivative u j)) :=
       IBP.continuous_enstrophyDensity ((hdir_cd j).of_le (by norm_num))
@@ -136,7 +172,11 @@ theorem CompactSupportC3Hypotheses.toHessianLaplacianIBPData
   · have hc : Continuous (fun x =>
       ‖firstDirectionalDerivative u j x‖ *
           ‖fderiv ℝ (fderiv ℝ (firstDirectionalDerivative u j)) x‖) :=
-      (hdir_cd j).continuous.norm.mul (hdir_second_cont j).norm
+      by
+        let hsecondnorm : Continuous (fun x =>
+            ‖fderiv ℝ (fderiv ℝ (firstDirectionalDerivative u j)) x‖) := by
+          exact continuous_clm_opNorm.comp (hdir_second_cont j)
+        exact (hdir_cd j).continuous.norm.mul hsecondnorm
     exact hc.integrable_of_hasCompactSupport ((hdir_support j).norm.mul_right)
   · have hc : Continuous (fun x =>
         ⟪firstDirectionalDerivative u j x,
@@ -145,16 +185,19 @@ theorem CompactSupportC3Hypotheses.toHessianLaplacianIBPData
     exact hc.integrable_of_hasCompactSupport (hdir_lap_inner_support j)
   · have hc : Continuous (fun x =>
         ‖Δ u x‖ * ‖fderiv ℝ u x‖) :=
-      hdelta_cd.continuous.norm.mul (hu.continuous_fderiv one_ne_zero).norm
+      hdelta_cd.continuous.norm.mul (hu.continuous_fderiv (by norm_num)).norm
     exact hc.integrable_of_hasCompactSupport (hdelta_support.norm.mul_right)
   · have hc : Continuous (fun x =>
         ‖fderiv ℝ u x‖ * ‖fderiv ℝ (Δ u) x‖) :=
-      (hu.continuous_fderiv one_ne_zero).norm.mul
-        (hdelta_cd.continuous_fderiv one_ne_zero).norm
+      (hu.continuous_fderiv (by norm_num)).norm.mul
+        (hdelta_cd.continuous_fderiv (by norm_num)).norm
     exact hc.integrable_of_hasCompactSupport (hdu_support.norm.mul_right)
   · have hc : Continuous (fun x =>
         ‖Δ u x‖ * ‖fderiv ℝ (fderiv ℝ u) x‖) :=
-      hdelta_cd.continuous.norm.mul hbase_second_cd.continuous
+      by
+        let hsecondnorm : Continuous (fun x => ‖fderiv ℝ (fderiv ℝ u) x‖) := by
+          exact continuous_clm_opNorm.comp hbase_second_cd.continuous
+        exact hdelta_cd.continuous.norm.mul hsecondnorm
     exact hc.integrable_of_hasCompactSupport (hdelta_support.norm.mul_right)
 
 /-- The compact-support `C³` wrapper for the integrated Hessian--Laplacian

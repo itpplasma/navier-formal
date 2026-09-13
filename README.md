@@ -34,7 +34,10 @@ after OpenAI's forced-blowup release of the same day.
 
 No solution of the Millennium problem, no priority claim, and no dependence
 of any unforced statement on the forced OpenAI result is asserted. Advertised
-Palomar surface: nine CP1 statements in `Challenge.lean`, all Phase II. The
+Palomar surface: nine CP1 statements in `Challenge.lean`, all Phase II;
+`L4L3_supercritical` is now proved directly in the challenge file, and
+`integral_scalar_obstruction` and `scalar_obstruction_exists` are also now
+proved directly; the other six remain interface placeholders. The
 conditional theorem `NavierFormal.conditional_clay_A_of_tao`
 (`CriticalHypothesis → ClayAlternativeA_all`) is Phase I over exactly two
 named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
@@ -67,8 +70,17 @@ Formal, in order of value:
    `H²` hypotheses. Under the explicit `CompactSupportC3Hypotheses` package,
    `CompactSupportIBP/GradientInterpolation.lean` now proves the bounded
    operator-norm Jacobian Sobolev/interpolation step and has an independent
-   bump-function oracle. The finite-dimensional operator/Frobenius norm
-   identification and the manuscript-level bridge remain open.
+   bump-function oracle. `CompactSupportIBP/FiniteDimensionalNormBridge.lean`
+   now lifts the operator/Frobenius comparison to the relevant eLpNorms and
+   specializes it to Jacobian fields, with an independent exact oracle. The
+   manuscript-level H²-to-C³/IBP bridge and critical `L³` producer remain open.
+   `HessianLaplacianEnstrophy.lean` now derives the exact `ha2` input for the
+   enstrophy consumer from explicit IBP data, with a trust-zero consumer check
+   and independent Gaussian oracle. The pinned target build replays the
+   bounded route only. The disjoint
+   `CompactSupportIBP/BoundedEnstrophyConsumer.lean` packages `ha2`, the
+   bounded Jacobian interpolation estimate, and the verified Jacobian norm
+   interfaces under the same explicit hypotheses.
 2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`
    (uniform `L²` bound, identification of the abstract enstrophy with the
    gradient norm, `SerrinHypotheses`, interval-integral monotonicity) from

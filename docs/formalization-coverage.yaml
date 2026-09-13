@@ -91,6 +91,9 @@ declarations:
   - name: NavierFormal.gradient_interpolation_of_compactSupportC3
     manuscript_label: lem:GN
     status: phase-ii-draft-under-explicit-hypotheses
+  - name: NavierFormal.boundedEnstrophyConsumer_of_compactSupportC3
+    manuscript_label: prop:enstrophy
+    status: phase-ii-draft-under-explicit-hypotheses
   - name: NavierFormal.UnforcedCounterexample.nuNormalization
     manuscript_label: none (PLAN UE4 statement surface)
     status: phase-ii-complete

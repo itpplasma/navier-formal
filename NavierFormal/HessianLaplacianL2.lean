@@ -111,7 +111,8 @@ theorem hessian_laplacian_L2_identity
     have huf : ContDiff ℝ 2 (fderiv ℝ u) :=
       hu.fderiv_right (m := 2) (by norm_num)
     have hcomp := (ContinuousLinearMap.apply ℝ Space (e j)).contDiff.comp huf
-    simpa [firstDirectionalDerivative, Function.comp_def] using hcomp
+    change ContDiff ℝ 2 (fun x => (fderiv ℝ u x) (e j))
+    exact hcomp
 
   have hdelta_cd : ContDiff ℝ 1 (Δ u) := by
     have h2 : ContDiff ℝ 1 (fderiv ℝ (fderiv ℝ u)) :=
@@ -176,7 +177,9 @@ theorem hessian_laplacian_L2_identity
           ∑ j : Fin 3, ⟪fderiv ℝ u x (e j),
             fderiv ℝ (Δ u) x (e j)⟫ := by
               refine Finset.sum_congr rfl fun j _ => ?_
-              simp only [firstDirectionalDerivative]
+              change ⟪(fderiv ℝ u x) (e j),
+                Δ (fun y => (fderiv ℝ u y) (e j)) x⟫ =
+                ⟪(fderiv ℝ u x) (e j), (fderiv ℝ (Δ u) x) (e j)⟫
               rw [← laplacian_fderiv_dir_comm_euclidean hu x (e j)]
       _ = frobeniusInner (fderiv ℝ u x) (fderiv ℝ (Δ u) x) := by
             rfl
@@ -187,8 +190,9 @@ theorem hessian_laplacian_L2_identity
         ∫ x, frobeniusInner (fderiv ℝ u x) (fderiv ℝ (Δ u) x) :=
     integral_congr_ae (Filter.Eventually.of_forall hcomm_pointwise)
 
-  have hbase := integral_frobenius_inner_eq_neg_integral_inner_laplacian hu
-    hdelta_cd h.base_primitive h.base_gradient_product h.base_second
+  have hbase := integral_frobenius_inner_eq_neg_integral_inner_laplacian
+    (hu.of_le (by norm_num)) hdelta_cd
+    h.base_primitive h.base_gradient_product h.base_second
   have hbase_norm :
       ∫ x, ⟪Δ u x, Δ u x⟫ = ∫ x, ‖Δ u x‖ ^ 2 :=
     integral_congr_ae (Filter.Eventually.of_forall fun x => real_inner_self_eq_norm_sq _)

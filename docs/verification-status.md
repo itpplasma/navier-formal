@@ -35,39 +35,74 @@ generic `C³` directional/finite-trace commutation and its Euclidean Laplacian
 specialization, with an independent constant-field oracle in
 `research/check_hessian_laplacian.lean`. The analytic estimate
 `‖D²u‖₂ ≲ ‖Δu‖₂` needed for the enstrophy interpolation remains open; this
-lane is not replayed because the pinned Mathlib checkout is absent.
+lane is not the remaining blocker: the pinned Lean 4.34/Mathlib checkout now
+replays the integrated target after a local compatibility repair.
 The draft `NavierFormal/HessianLaplacianL2.lean` now adds the exact integrated
 identity `∫‖D²u‖_F² = ∫‖Δu‖²` under an explicit
 `HessianLaplacianIBPData` package, plus the square-root norm form and an
 independent Gaussian oracle. This is a bounded formal producer, not yet a
 paper-level closure: the compact-support/H²-to-IBP-data bridge and the
-interpolation theorem remain open, and the draft awaits pinned-toolchain replay.
+interpolation theorem remain open.
+The controller replayed `HessianLaplacianL2`, `CompactSupportIBP.Adapter`, and
+`CompactSupportIBP.GradientInterpolation` with `lake build`; all three now
+build successfully. The independent Gaussian, compact-support, and gradient
+oracles pass. This replay does not identify the manuscript's generic `H²`
+field with pointwise `C³`/IBP data.
 `NavierFormal/CompactSupportIBP/Adapter.lean` closes the elementary compact
 support side under pointwise `ContDiff ℝ 3`: it constructs all seven explicit
 integrability fields, and `research/compact_support_ibp_oracle.py` passes an
 independent bump-function check. The first unsupported paper bridge is now
 precisely the H²-to-pointwise-C³/IBP-data identification.
+**Update 2026-09-12 (finite-dimensional norm bridge).**
+`NavierFormal/CompactSupportIBP/FiniteDimensionalNormBridge.lean` lifts the
+existing pointwise operator/Frobenius comparison to eLpNorms and gives the
+Jacobian specialization used by the interpolation route. Its independent
+exact 3x3 oracle passes. This closes the norm-convention consumer under the
+explicit field package; it does not identify generic manuscript H² data with
+that package or compose the Hessian/Laplacian integral bridge.
 **Update 2026-09-12 (gradient interpolation).**
 `NavierFormal/CompactSupportIBP/GradientInterpolation.lean` now proves the
 Jacobian-field Sobolev `L⁶` estimate and the resulting operator-norm `L³`
 gradient interpolation under `CompactSupportC3Hypotheses`. The independent
 `research/gradient_interpolation_oracle.py` passes. This is a bounded
 Phase-II-style consumer under explicit hypotheses, not closure of the
-manuscript `prop:enstrophy`: the H²-to-C³/IBP bridge, operator/Frobenius norm
-identification, and critical `L³` producer remain open. The pinned Mathlib
-checkout is absent, so this new Lean draft has not received a trust-disabled
-toolchain replay.
+manuscript `prop:enstrophy`: the H²-to-C³/IBP bridge, Hessian-to-Laplacian
+integral composition, and critical `L³` producer remain open. The pinned Mathlib
+checkout replay is now successful; this remains a bounded consumer under its
+explicit hypotheses, not a paper-level closure.
 Sol/Astra review adds the exact boundary: the source theorem is sound under
 its explicit `CompactSupportC3Hypotheses`, but the manuscript's generic `H²`
 field still needs a pointwise-`C³` compact-support cutoff/limit bridge. The
 Hessian/Frobenius-to-Laplacian norm comparison and integral bookkeeping are
 also not composed. No further escalation is made on this seam.
-**Update 2026-09-06.** `Challenge.lean` intentionally retains nine statement
-placeholders for the advertised Mathlib-only surface. `Solution.lean`
+**Update 2026-09-12 (enstrophy bookkeeping consumer).**
+`NavierFormal/HessianLaplacianEnstrophy.lean` derives the exact squared
+Laplacian integral equality used as `ha2` by `NavierFormal.enstrophy_inequality`
+from `HessianLaplacianIBPData`. Its targeted trust-zero consumer check and
+`research/hessian_laplacian_enstrophy_oracle.py` pass; the oracle uses a
+nonzero Gaussian field and obtains normalized squared integrals `65/8` on both
+sides. This composes the explicit bounded consumers only. The manuscript
+H²-to-pointwise-C³/IBP-data bridge and critical `L³` producer remain open.
+
+**Update 2026-09-12 (bounded enstrophy composition).**
+`NavierFormal/CompactSupportIBP/BoundedEnstrophyConsumer.lean` now packages,
+under `CompactSupportC3Hypotheses`, the exact `ha2` input, the bounded
+operator-norm Jacobian interpolation estimate, and the checked Jacobian
+operator/Frobenius eLpNorm comparisons. The targeted check
+`research/check_bounded_enstrophy_consumer.lean` passes at trust zero and
+reports only `[propext, Classical.choice, Quot.sound]`; the independent
+`research/bounded_enstrophy_consumer_oracle.py` passes alongside the existing
+Gaussian and interpolation oracles. This is a bounded explicit-data
+composition only: it does not close the H²-to-pointwise-C³/IBP bridge, the
+second-derivative norm identification, or the critical `L³` producer.
+**Update 2026-09-12.** `Challenge.lean` now directly proves the scalar
+`L4L3_supercritical`, `integral_scalar_obstruction`, and
+`scalar_obstruction_exists` declarations; six statement placeholders remain
+for the advertised Mathlib-only surface. `Solution.lean`
 re-declares and proves the corresponding declarations, with type identity
 verified mechanically under `set_option pp.all true` and the advertised
 theorems checked axiom-clean against `{propext, Quot.sound, Classical.choice}`.
-The nine `sorry`s are Challenge interface placeholders and are not imported by
+The remaining six `sorry`s are Challenge interface placeholders and are not imported by
 Solution; only the status rows below describe what is actually proved.
 The same day, two further modules landed and are in the build:
 `NavierFormal/Energy.lean` (14 declarations) toward `prop:energy` and

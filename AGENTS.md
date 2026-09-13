@@ -69,7 +69,15 @@ operator-norm Jacobian Sobolev/interpolation consumer in
 `CompactSupportIBP/GradientInterpolation.lean`. The first paper bridge remains
 the manuscript `H²`/compact-support hypotheses to the pointwise IBP package;
 operator/Frobenius norm identification and the critical `L³` producer are also
-open. Keep `../navier/PLAN.md` authoritative for companion research status.
+open. `HessianLaplacianEnstrophy.lean` now supplies the exact `ha2` bookkeeping
+consumer from `HessianLaplacianIBPData`, with a trust-zero compatibility check
+and independent Gaussian oracle. The controller has replayed the target
+modules with the pinned build and the independent Gaussian/bump-function/
+interpolation oracles pass. `CompactSupportIBP/BoundedEnstrophyConsumer.lean`
+now packages the exact `ha2`, bounded Jacobian interpolation, and verified
+Jacobian operator/Frobenius norm interfaces under the explicit compact-support
+pointwise-`C³` hypotheses; this does not promote the manuscript-level bridge.
+Keep `../navier/PLAN.md` authoritative for companion research status.
 
 ## Proof-source provenance and goal mode
 

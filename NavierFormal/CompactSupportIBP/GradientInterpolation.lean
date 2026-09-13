@@ -22,7 +22,7 @@ manuscript's `hyp:critical`.
 -/
 
 open MeasureTheory
-open scoped ENNReal
+open scoped ENNReal NNReal
 
 noncomputable section
 
@@ -83,7 +83,6 @@ theorem gradient_interpolation_of_compactSupportC3
         (jacobianSobolevSixConst *
           eLpNorm (fderiv ℝ (fderiv ℝ u)) 2 volume) ^ (1 / 2 : ℝ) := by
       gcongr
-      exact ENNReal.rpow_le_rpow hsob (by norm_num)
 
 end NavierFormal
 

@@ -34,25 +34,26 @@ after OpenAI's forced-blowup release of the same day.
 
 No solution of the Millennium problem, no priority claim, and no dependence
 of any unforced statement on the forced OpenAI result is asserted. Advertised
-Palomar surface: nine CP1 statements in `Challenge.lean`, all Phase II;
-`L4L3_supercritical` is now proved directly in the challenge file, and
-`integral_scalar_obstruction` and `scalar_obstruction_exists` are also now
-proved directly; the other six remain interface placeholders. The
+Palomar surface: nine CP1 statements are advertised. `Solution.lean` proves
+all nine from Mathlib, while `Challenge.lean` intentionally retains six
+interface placeholders. The
 conditional theorem `NavierFormal.conditional_clay_A_of_tao`
 (`CriticalHypothesis → ClayAlternativeA_all`) is Phase I over exactly two
 named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
 `NavierFormal.Literature.endpointContinuation`, kept in the separate library
 `NavierFormalConditional`. The research context, status and allocation are in
-the companion repository `itpplasma/navier` (`PLAN.md`). The internal
-manuscript repository stays private for now.
+the companion repository `itpplasma/navier` (`PLAN.md`). The manuscript
+sources are public in that repository's `paper/` directory; `navier-paper` is
+historical.
 
 ## Proof map
 
 The current route is: CP1 statement surface in `Challenge.lean` → Mathlib-only
 solutions in `Solution.lean` → conditional literature bridge
 `NavierFormalConditional` → the paper's critical `L³` producer. The first two
-surfaces contain checked pieces; the PDE scaling, dominated-convergence,
-finite-horizon critical bound, and endpoint hypotheses remain open as recorded
+surfaces contain checked pieces. Estimate `eq:L4L3`, the pressure integral
+closure, the finite-horizon critical bound, and remaining endpoint hypotheses
+remain open as recorded
 in `docs/verification-status.md` and the live plan in `../navier/PLAN.md`.
 
 ## Blockers for anyone continuing this work

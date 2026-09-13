@@ -30,8 +30,8 @@ deliberate placeholders while `L4L3_supercritical` and
 `integral_scalar_obstruction` and `scalar_obstruction_exists` are now proved directly. `Solution.lean` proves the
 corresponding advertised declarations. This file
 does not promote the conditional route or the paper-only critical estimate.
-The integrated Hessian/Laplacian node is a checked draft boundary until the
-pinned toolchain replay is available; its independent Gaussian oracle is
+The integrated Hessian/Laplacian node replayed successfully against the pinned
+toolchain under explicit packages; its independent Gaussian oracle is
 recorded in `research/check_hessian_laplacian_l2_oracle.py`. The compact-support
 adapter supplies all seven explicit integrability fields under pointwise
 `ContDiff ℝ 3` and `HasCompactSupport`; its independent bump oracle is

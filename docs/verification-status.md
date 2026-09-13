@@ -7,12 +7,11 @@ Reader-facing status has three values:
   theorem has not yet been proved from Mathlib.
 - **Phase II complete:** Lean proves the claim from Mathlib.
 
-Current state: CP03a and CP03b integrated. `prop:ode` and the norm-scaling
-half of `prop:scaling` (plus the two scalar remarks inside its proof) are
-proved from Mathlib in `NavierFormal/Ode.lean`, `NavierFormal/Scaling.lean`,
-and `NavierFormal/InterpolationMismatch.lean`. The PDE half of `prop:scaling`
-(that `(u_λ, p_λ)` solves the system) and estimate `eq:L4L3` are not yet in
-Lean. CP03b adds the pointwise and almost-everywhere supporting lemmas of the
+Current state: CP03a–CP03d are integrated. `prop:ode`, both the norm and PDE
+scaling halves of `prop:scaling`, and the two scalar remarks inside its proof
+are checked. Estimate `eq:L4L3`, the finite-horizon critical producer, and the
+manuscript H²-to-pointwise-C³/IBP bridge remain open. CP03b adds the pointwise
+and almost-everywhere supporting lemmas of the
 proof of `prop:pressure` (`NavierFormal/Regularization.lean`,
 `NavierFormal/NormGradient.lean`); the proposition itself, its integral
 identities, and the dominated-convergence limit remain paper only. CP03c adds
@@ -37,7 +36,7 @@ specialization, with an independent constant-field oracle in
 `‖D²u‖₂ ≲ ‖Δu‖₂` needed for the enstrophy interpolation remains open; this
 lane is not the remaining blocker: the pinned Lean 4.34/Mathlib checkout now
 replays the integrated target after a local compatibility repair.
-The draft `NavierFormal/HessianLaplacianL2.lean` now adds the exact integrated
+`NavierFormal/HessianLaplacianL2.lean` now adds the exact integrated
 identity `∫‖D²u‖_F² = ∫‖Δu‖²` under an explicit
 `HessianLaplacianIBPData` package, plus the square-root norm form and an
 independent Gaussian oracle. This is a bounded formal producer, not yet a
@@ -65,16 +64,14 @@ that package or compose the Hessian/Laplacian integral bridge.
 Jacobian-field Sobolev `L⁶` estimate and the resulting operator-norm `L³`
 gradient interpolation under `CompactSupportC3Hypotheses`. The independent
 `research/gradient_interpolation_oracle.py` passes. This is a bounded
-Phase-II-style consumer under explicit hypotheses, not closure of the
-manuscript `prop:enstrophy`: the H²-to-C³/IBP bridge, Hessian-to-Laplacian
-integral composition, and critical `L³` producer remain open. The pinned Mathlib
-checkout replay is now successful; this remains a bounded consumer under its
-explicit hypotheses, not a paper-level closure.
+Phase II consumer under explicit hypotheses, not closure of the manuscript
+`prop:enstrophy`: the H²-to-C³/IBP bridge and critical `L³` producer remain
+open. The pinned Mathlib checkout replay is successful.
 Sol/Astra review adds the exact boundary: the source theorem is sound under
 its explicit `CompactSupportC3Hypotheses`, but the manuscript's generic `H²`
 field still needs a pointwise-`C³` compact-support cutoff/limit bridge. The
-Hessian/Frobenius-to-Laplacian norm comparison and integral bookkeeping are
-also not composed. No further escalation is made on this seam.
+Hessian/Frobenius-to-Laplacian comparison and `ha2` bookkeeping are composed
+under the explicit IBP package. No further escalation is made on this seam.
 **Update 2026-09-12 (enstrophy bookkeeping consumer).**
 `NavierFormal/HessianLaplacianEnstrophy.lean` derives the exact squared
 Laplacian integral equality used as `ha2` by `NavierFormal.enstrophy_inequality`

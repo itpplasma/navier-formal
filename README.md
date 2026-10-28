@@ -1,103 +1,74 @@
 # navier-formal
 
-Lean 4 formalization of checkpoint CP1 of a research programme on the
-three-dimensional incompressible Navier–Stokes Cauchy problem. CP1 is an
-internal manuscript route: energy identity, critical scaling, cubic enstrophy
-inequality, signed critical pressure balance, low-frequency pressure bound,
-cubic gradient-quotient functional, and the theorem that a finite-horizon a
-priori `L³` bound implies Clay alternative A. The arbitrary-data critical bound
-is an explicit hypothesis. No solution of the Millennium problem is claimed
-here or in the companion repositories.
+Lean 4 formalization of parts of a conditional argument for the
+three-dimensional incompressible Navier-Stokes Cauchy problem on whole space.
+The manuscript, research notes and plan live in the companion repository
+[navier](https://github.com/itpplasma/navier).
 
-Companion repository: [itpplasma/navier](https://github.com/itpplasma/navier)
-contains the research dossier, live `PLAN.md`, and public manuscript sources
-in [paper/](https://github.com/itpplasma/navier/tree/main/paper). The former
-`navier-paper` repository was archived on 2026-09-09.
-The manuscript, research dossier, and Lean development are records of the same
-ongoing project, not separate prior publications or presentations. Their dated
-chronology is retained for provenance and review. Layout follows the Palomar
-template: `Challenge.lean` states the advertised results with Mathlib-only
-imports, `Solution.lean` proves them, `comparator.json` names the compared
-declarations, `formalization.yaml` records metadata.
+Status: partial and conditional. Nothing here proves global regularity or
+constructs a blow-up; the arbitrary-data critical `L³` bound is an explicit
+hypothesis that nothing in either repository produces.
 
-Build with `lake build` (Lean `v4.34.0-rc2`, Mathlib `v4.34.0-rc2`, commit
-`85e3a25e`; pinned to match the Solution-only external dependency
-`openai/NavierStokesAndEuler@8937a8f4`, Apache-2.0, which only modules under
-`NavierFormal/External/` may import; see `docs/external-openai-audit.md`). Status and axiom
-reports are in `docs/verification-status.md`; literature inputs in
-`docs/literature-assumptions.yaml`; the internal-proof-to-Lean correspondence
-in `docs/paper-lean-specification.md`. The repository was made public on
-2026-09-08 under Apache-2.0 as a documented record of the work before and
-after OpenAI's forced-blowup release of the same day.
+## What is formalized
 
-## Public status and disclaimer (2026-09-08)
+- `Challenge.lean` / `Solution.lean`: nine statements from the manuscript's
+  scaling and obstruction material (critical-dilation norm identities, the
+  `L⁴`/`L³` interpolation mismatch, the scalar ODE obstruction), listed in
+  `comparator.json`. `Challenge.lean` imports only Mathlib; three of the
+  statements are proved there directly and six are left as intentional
+  `sorry` placeholders, all nine are proved in `Solution.lean`, and the
+  comparator permits only `propext`, `Quot.sound` and `Classical.choice`.
+- `NavierFormal` (root library): the statement surface (operators, classical
+  solution class, critical hypothesis, quotient objects), energy and
+  enstrophy identities, integration by parts, interpolation inequalities and
+  pressure lemmas, and a Hessian/Laplacian `L²` identity under explicit
+  integration-by-parts hypotheses. It contains no `sorry` and no `axiom`
+  declarations.
+- `NavierFormalConditional` (separate library): `conditional_clay_A`
+  (critical hypothesis implies Clay alternative A) and
+  `conditional_clay_A_of_tao`. These depend on literature results stated as
+  axioms in `NavierFormal/Literature/`: `localTheory`, `taoLocalTheory`,
+  `endpointContinuation` and `essL3ToL5` (four axioms in total; each theorem
+  uses two of them). Their sources are recorded in
+  [docs/literature-assumptions.yaml](docs/literature-assumptions.yaml).
 
-No solution of the Millennium problem, no priority claim, and no dependence
-of any unforced statement on the forced OpenAI result is asserted. Advertised
-Palomar surface: nine CP1 statements are advertised. `Solution.lean` proves
-all nine from Mathlib, while `Challenge.lean` intentionally retains six
-interface placeholders. The
-conditional theorem `NavierFormal.conditional_clay_A_of_tao`
-(`CriticalHypothesis → ClayAlternativeA_all`) is Phase I over exactly two
-named literature axioms, `NavierFormal.Literature.taoLocalTheory` and
-`NavierFormal.Literature.endpointContinuation`, kept in the separate library
-`NavierFormalConditional`. The research context, status and allocation are in
-the companion repository `itpplasma/navier` (`PLAN.md`). The manuscript
-sources are public in that repository's `paper/` directory; `navier-paper` is
-historical.
+Modules under `NavierFormal/External/` import whole-space uniqueness and
+related results from OpenAI's Apache-2.0 Lean development
+[NavierStokesAndEuler](https://github.com/openai/NavierStokesAndEuler); no
+other module may import it. The imported modules are whole-space uniqueness,
+an `L⁶` Sobolev bound and pressure recovery, not OpenAI's forced blow-up
+theorem. See [docs/external-openai-audit.md](docs/external-openai-audit.md).
 
-## Proof map
+## Building
 
-The current route is: CP1 statement surface in `Challenge.lean` → Mathlib-only
-solutions in `Solution.lean` → conditional literature bridge
-`NavierFormalConditional` → the paper's critical `L³` producer. The first two
-surfaces contain checked pieces. Estimate `eq:L4L3`, the pressure integral
-closure, the finite-horizon critical bound, and remaining endpoint hypotheses
-remain open as recorded
-in `docs/verification-status.md` and the live plan in `../navier/PLAN.md`.
+Requires [elan](https://github.com/leanprover/elan). The toolchain is
+`leanprover/lean4:v4.34.0-rc2`; `lakefile.toml` pins Mathlib `v4.34.0-rc2`
+and NavierStokesAndEuler at commit `8937a8f4`.
 
-## Blockers for anyone continuing this work
+```sh
+lake exe cache get
+lake build
+```
 
-Formal, in order of value:
+This builds `NavierFormal`, `NavierFormalConditional`, `Challenge` and
+`Solution`. Axiom checks for individual declarations are in
+`research/check_*.lean` (for example
+`lake env lean research/check_conditional.lean`).
 
-1. `‖D²u‖₂ = ‖Δu‖₂` for compactly supported smooth `u` on `ℝ³` (Hilbert–Schmidt
-   square of the Hessian). `NavierFormal/HessianLaplacianL2.lean` now proves
-   the exact integrated identity under an explicit whole-space
-   integration-by-parts package, with an independent Gaussian oracle. The
-   `NavierFormal/CompactSupportIBP/Adapter.lean` now derives all seven explicit
-   IBP integrability fields from compact support and pointwise `C³`; its
-   independent bump-function oracle passes. The remaining bridge is deriving
-   the required pointwise `C³`/IBP data from the manuscript's compact-support/
-   `H²` hypotheses. Under the explicit `CompactSupportC3Hypotheses` package,
-   `CompactSupportIBP/GradientInterpolation.lean` now proves the bounded
-   operator-norm Jacobian Sobolev/interpolation step and has an independent
-   bump-function oracle. `CompactSupportIBP/FiniteDimensionalNormBridge.lean`
-   now lifts the operator/Frobenius comparison to the relevant eLpNorms and
-   specializes it to Jacobian fields, with an independent exact oracle. The
-   manuscript-level H²-to-C³/IBP bridge and critical `L³` producer remain open.
-   `HessianLaplacianEnstrophy.lean` now derives the exact `ha2` input for the
-   enstrophy consumer from explicit IBP data, with a trust-zero consumer check
-   and independent Gaussian oracle. The pinned target build replays the
-   bounded route only. The disjoint
-   `CompactSupportIBP/BoundedEnstrophyConsumer.lean` packages `ha2`, the
-   bounded Jacobian interpolation estimate, and the verified Jacobian norm
-   interfaces under the same explicit hypotheses.
-2. Discharge the four explicit hypotheses of `endpointContinuation_of_ess`
-   (uniform `L²` bound, identification of the abstract enstrophy with the
-   gradient norm, `SerrinHypotheses`, interval-integral monotonicity) from
-   `taoLocalTheory`, so that `conditional_clay_A` depends on `taoLocalTheory`
-   and `essL3ToL5` only.
-3. `lem:R-consequences`(a): the `L²` difference-quotient limit of `u` in time
-   from the regularity package alone (needs a Bochner Taylor remainder with
-   Minkowski's integral inequality); currently a clause of `taoLocalTheory`.
-4. Formalize the Leray–Hopf weak-solution class so that `essL3ToL5` can be
-   split into ESS Theorem 1.3 verbatim plus a proved `lem:leray-hopf`.
-5. Phase II of `taoLocalTheory` (local classical theory for Schwartz data):
-   standard PDE, absent from Mathlib, large.
-6. Statement surface: `IsClassicalSolution` has no integrability class, so
-   `CriticalBound` quantifies over a wider family than the manuscript's
-   `hyp:critical`; the direction `hyp:critical → CriticalBound` needs
-   uniqueness in the class.
+## Documentation
 
-Mathematical: the only open input of the positive route is the finite-horizon
-critical `L³` bound `hyp:critical`; nothing in either repository produces it.
+- [docs/verification-status.md](docs/verification-status.md): status of each
+  manuscript result and recorded axiom reports.
+- [docs/paper-lean-specification.md](docs/paper-lean-specification.md):
+  manuscript definitions and claims versus Lean declarations.
+- [docs/proof-map.md](docs/proof-map.md): dependency boundary of the current
+  route.
+- [docs/open-problems.md](docs/open-problems.md): the remaining formal and
+  mathematical gaps.
+- [docs/literature-assumptions.yaml](docs/literature-assumptions.yaml):
+  literature axioms and their sources.
+
+## License
+
+Apache-2.0; see [LICENSE](LICENSE). No priority claim is made; the
+manuscript, research notes and this formalization are parts of one project.
